@@ -5,69 +5,37 @@ const NAV_LINKS = ['Learn', 'Projects', 'Community', 'Docs']
 
 const FEATURES = [
   {
-    icon: '⚡',
     title: 'Java & WPILib',
     desc: 'Master the official FRC framework from subsystems to full robot control loops.',
     tag: 'Core',
   },
   {
-    icon: '🤖',
     title: 'Command-Based',
     desc: 'Learn the command-based architecture that powers competitive FRC robots.',
     tag: 'Architecture',
   },
   {
-    icon: '📡',
     title: 'Vision & Sensors',
     desc: 'Integrate PhotonVision, Limelight, encoders, gyros, and more.',
     tag: 'Hardware',
   },
   {
-    icon: '🗺️',
     title: 'Auto Path Planning',
     desc: 'Build auto routines with PathPlanner and trajectory generation tools.',
     tag: 'Autonomous',
   },
   {
-    icon: '📊',
     title: 'Tuning & Debugging',
     desc: 'Use AdvantageKit, Shuffleboard, and logging to dial in your robot.',
     tag: 'Tooling',
   },
   {
-    icon: '🏆',
     title: 'Competition Ready',
     desc: 'Deploy, test, and iterate under real competition constraints.',
     tag: 'Deploy',
   },
 ]
 
-const CODE_SNIPPET = `public class ShooterSubsystem extends SubsystemBase {
-  private final CANSparkMax motor =
-      new CANSparkMax(SHOOTER_ID, MotorType.kBrushless);
-
-  private final SparkPIDController pid =
-      motor.getPIDController();
-
-  public ShooterSubsystem() {
-    pid.setP(0.0003);
-    pid.setFF(0.000175);
-  }
-
-  public Command spinUp(double rpm) {
-    return runEnd(
-      () -> pid.setReference(rpm, ControlType.kVelocity),
-      () -> motor.stopMotor()
-    );
-  }
-}`
-
-const STEPS = [
-  { num: '01', title: 'Set Up Your Dev Environment', desc: 'Install VS Code, WPILib, and connect to your roboRIO.' },
-  { num: '02', title: 'Learn the Fundamentals', desc: 'Understand subsystems, commands, and robot lifecycle.' },
-  { num: '03', title: 'Build Real Subsystems', desc: 'Drive trains, shooters, climbers — hands-on from day one.' },
-  { num: '04', title: 'Compete & Iterate', desc: 'Tune, log, and optimize your way to the top of the rankings.' },
-]
 
 function TypewriterText({ texts }: { texts: string[] }) {
   const [displayed, setDisplayed] = useState('')
@@ -162,18 +130,9 @@ export default function App() {
 
       {/* Hero */}
       <section className="hero">
-        <div className="hero-badge">
-          <span className="badge-dot" />
-          Season 2025 · Reefscape
-        </div>
         <h1 className="hero-title">
-          Write code that<br />
-          <TypewriterText texts={['wins matches.', 'scores points.', 'moves robots.', 'beats the clock.']} />
+          A resource for learning FRC robot programming
         </h1>
-        <p className="hero-sub">
-          The complete resource for learning FRC robot programming —<br className="br-hide" />
-          from your first subsystem to championship auto routines.
-        </p>
         <div className="hero-actions">
           <a href="#" className="btn-primary">Get Started Free</a>
           <a href="#" className="btn-ghost">
@@ -182,13 +141,6 @@ export default function App() {
             </svg>
             View on GitHub
           </a>
-        </div>
-        <div className="hero-stats">
-          <div className="stat"><span className="stat-num">2,400+</span><span className="stat-label">Students</span></div>
-          <div className="stat-divider" />
-          <div className="stat"><span className="stat-num">180+</span><span className="stat-label">Teams</span></div>
-          <div className="stat-divider" />
-          <div className="stat"><span className="stat-num">60+</span><span className="stat-label">Lessons</span></div>
         </div>
       </section>
 
@@ -202,45 +154,12 @@ export default function App() {
           {FEATURES.map(f => (
             <div key={f.title} className="feature-card">
               <div className="feature-top">
-                <span className="feature-icon">{f.icon}</span>
                 <span className="feature-tag">{f.tag}</span>
               </div>
               <h3 className="feature-title">{f.title}</h3>
               <p className="feature-desc">{f.desc}</p>
             </div>
           ))}
-        </div>
-      </section>
-
-      {/* Steps */}
-      <section className="steps-section">
-        <div className="section-header">
-          <p className="section-eyebrow">The path forward</p>
-          <h2 className="section-title centered">Zero to competition<br /><span className="accent-cyan">in four steps</span></h2>
-        </div>
-        <div className="steps-list">
-          {STEPS.map((s, i) => (
-            <div key={s.num} className="step">
-              <div className="step-left">
-                <div className="step-num">{s.num}</div>
-                {i < STEPS.length - 1 && <div className="step-line" />}
-              </div>
-              <div className="step-content">
-                <h3 className="step-title">{s.title}</h3>
-                <p className="step-desc">{s.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="cta-section">
-        <div className="cta-inner">
-          <p className="cta-eyebrow">Ready to build?</p>
-          <h2 className="cta-title">Your robot is waiting<br />for better code.</h2>
-          <p className="cta-body">Join thousands of FRC students leveling up their programming game.</p>
-          <a href="#" className="btn-primary large">Start Learning for Free →</a>
         </div>
       </section>
 
