@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap');
+
 /* ─── Dracula palette ─────────────────────────────────────────────────────── */
 :root {
   --bg:          #282a36;
@@ -31,8 +33,6 @@ body {
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
-
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap');
 
 a { color: inherit; text-decoration: none; }
 ul { list-style: none; }
