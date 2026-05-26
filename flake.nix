@@ -17,6 +17,7 @@
             pkgs.pnpm
             pkgs.typescript
             pkgs.typescript-language-server
+            pkgs.codex
           ];
         };
       }
