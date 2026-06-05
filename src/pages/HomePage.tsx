@@ -11,8 +11,8 @@ const FEATURES = [
     tag: 'Core',
   },
   {
-    title: 'Command-Based',
-    desc: 'Learn the command-based architecture that powers competitive FRC robots.',
+    title: 'Control Systems',
+    desc: 'Learn how to control your systems with how the APIs function to control methods.',
     tag: 'Architecture',
   },
   {
@@ -31,9 +31,9 @@ const FEATURES = [
     tag: 'Tooling',
   },
   {
-    title: 'Competition Ready',
-    desc: 'Deploy, test, and iterate under real competition constraints.',
-    tag: 'Deploy',
+    title: 'Version Control',
+    desc: 'Utilize real world development tools to improve your programming experience during season.',
+    tag: 'Development',
   },
 ] satisfies readonly {
   title: string
@@ -55,7 +55,7 @@ export function HomePage({ onStartLearning }: HomePageProps) {
               onStartLearning()
             }}
           >
-            Get Started Free
+            Start Learning
           </a>
           <a href="#" className="btn-ghost">
             <svg

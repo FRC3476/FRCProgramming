@@ -3,7 +3,6 @@ import { SiteFooter } from './components/SiteFooter'
 import { SiteNav } from './components/SiteNav'
 import { getAppPath, LEARN_PATH, type AppPath } from './routes'
 import { HomePage } from './pages/HomePage'
-import { LearnPage } from './pages/LearnPage'
 import './App.css'
 
 function App() {
@@ -62,9 +61,7 @@ function App() {
       onNavigate: navigateTo,
       onToggleMenu: toggleMenu,
     }),
-    activePath === LEARN_PATH
-      ? createElement(LearnPage)
-      : createElement(HomePage, { onStartLearning: () => navigateTo(LEARN_PATH) }),
+    createElement(HomePage, { onStartLearning: () => navigateTo(LEARN_PATH) }),
     createElement(SiteFooter),
   )
 }
