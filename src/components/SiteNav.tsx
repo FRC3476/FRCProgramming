@@ -15,8 +15,8 @@ type SiteNavProps = {
 }
 
 const NAV_LINKS = [
-  { label: 'Learn', path: LEARN_PATH },
   { label: 'Community', path: COMMUNITY_PATH },
+  { label: 'Learn', path: LEARN_PATH },
 ] satisfies readonly NavLink[]
 
 export function SiteNav({ activePath, menuOpen, onCloseMenu, onNavigate, onToggleMenu,}: SiteNavProps) {
