@@ -1,3 +1,5 @@
+import './SiteFooter.css'
+
 export function SiteFooter() {
   return (
     <footer className="footer">

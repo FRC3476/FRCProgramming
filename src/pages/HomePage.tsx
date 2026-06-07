@@ -1,4 +1,5 @@
 import { LEARN_PATH } from '../routes'
+import './HomePage.css'
 
 type HomePageProps = {
   onStartLearning: () => void

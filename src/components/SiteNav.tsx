@@ -1,5 +1,6 @@
 import type { MouseEventHandler } from 'react'
 import { HOME_PATH, LEARN_PATH, COMMUNITY_PATH, type AppPath } from '../routes'
+import './SiteNav.css'
 
 type NavLink = {
   label: string
