@@ -53,7 +53,7 @@ function App() {
     'div',
     { className: 'app' },
     createElement('div', { className: 'grid-bg', 'aria-hidden': true }),
-    createElement('div', { className: 'noise-overlay', 'aria-hidden': true }),
+    // createElement('div', { className: 'noise-overlay', 'aria-hidden': true }),
     createElement(SiteNav, {
       activePath,
       menuOpen,
