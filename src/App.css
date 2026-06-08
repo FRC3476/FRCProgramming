@@ -13,13 +13,14 @@
   --green:       #50fa7b;
   --orange:      #e86e17;
   --teal:        #13abb9;
+  --orange-transparent: #ff842c86;
 
   /* Typography */
   --font-mono:   'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
   --font-sans:   'DM Sans', 'Nunito', system-ui, sans-serif;
   --font-display: 'Space Mono', 'JetBrains Mono', monospace;
 
-  --page-gutter: 100px;
+  --page-gutter: 150px;
 }
 
 /* ─── Reset & base ──────────────────────────────────────────────────────────── */

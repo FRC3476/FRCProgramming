@@ -3,11 +3,22 @@
     position: relative;
     z-index: 1;
     width: 100%;
-    padding: clamp(64px, 12vw, 96px) var(--page-gutter) 20px;
-    text-align: center;
+    padding: clamp(40px, 12vw, 60px) var(--page-gutter) 0px;
   }
-  
-  .hero > * { position: relative; z-index: 1; }
+
+  .hero-layout {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: clamp(24px, 5vw, 64px);
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-copy {
+    flex: 1;
+    min-width: 0;
+  }
   
   .hero-title {
     font-family: var(--font-display);
@@ -43,6 +54,27 @@
     flex-wrap: wrap;
     margin-bottom: 56px;
     animation: fadeInDown 0.6s 0.3s ease both;
+  }
+  .hero-image {
+    flex-shrink: 0;
+    width: clamp(300px, 35%, 450px);
+    margin-right: 100px;
+    margin-bottom: 100px;
+    height: auto;
+    object-fit: contain;
+    animation: fadeInDown 0.6s 0.35s ease both;
+  }
+
+  @media (max-width: 720px) {
+    .hero-layout {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .hero-image {
+      width: min(280px, 70%);
+      align-self: center;
+    }
   }
   
   .btn-primary {
@@ -87,14 +119,15 @@
     to   { opacity: 1; transform: translateY(0); }
   }
   
-  /* ─── Features ──────────────────────────────────────────────────────────────── */
-  .features-section {
+  /* ─── cards ──────────────────────────────────────────────────────────────── */
+  .cards-section {
     position: relative;
     z-index: 1;
     width: 100%;
-    padding: clamp(48px, 8vw, 80px) var(--page-gutter);
+    padding: clamp(20px, 8vw, 30px) var(--page-gutter);
   }
-  
+
+
   .section-header {
     text-align: center;
     margin-bottom: 56px;
@@ -122,13 +155,13 @@
   
   .accent-pink { color: var(--teal); }
   
-  .features-grid {
+  .cards-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
     gap: clamp(16px, 2.5vw, 20px);
   }
   
-  .feature-card {
+  .card-item {
     background: var(--surface);
     border: 1px solid var(--current);
     border-radius: 12px;
@@ -136,15 +169,18 @@
     transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
     cursor: default;
   }
-  
-  .feature-top {
+  .card-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(232, 110, 23, 0.25);
+  }
+  .card-top {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 16px;
   }
   
-  .feature-tag {
+  .card-tag {
     font-family: var(--font-mono);
     font-size: 10px;
     text-transform: uppercase;
@@ -156,7 +192,7 @@
     border-radius: 100px;
   }
   
-  .feature-title {
+  .card-title {
     font-family: var(--font-display);
     font-size: 17px;
     font-weight: 700;
@@ -165,7 +201,7 @@
     letter-spacing: -0.3px;
   }
   
-  .feature-desc {
+  .card-desc {
     font-size: 14px;
     line-height: 1.65;
     color: var(--comment);
