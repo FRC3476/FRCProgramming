@@ -52,7 +52,12 @@ export function HomePage({ onStartLearning }: HomePageProps) {
               >
                 Start Learning
               </a>
-              <a href="#" className="btn-ghost">
+              <a
+                href="https://github.com/FRC3476/FRCProgramming"
+                className="btn-ghost"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <svg
                   width="16"
                   height="16"
