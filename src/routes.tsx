@@ -1,9 +1,20 @@
 export const HOME_PATH = '/'
 export const LEARN_PATH = '/learn'
-export const COMMUNITY_PATH = '/community'
+export const CODEBASES_PATH = '/codebases'
+export const CURRICULUM_PATH = '/curriculum'
+export const TOOLS_PATH = '/tools'
 
-export type AppPath = typeof HOME_PATH | typeof LEARN_PATH | typeof COMMUNITY_PATH
+export const APP_PATHS = [
+  HOME_PATH,
+  LEARN_PATH,
+  CODEBASES_PATH,
+  CURRICULUM_PATH,
+  TOOLS_PATH,
+] as const
 
-export const getAppPath = (pathname: string): AppPath => {
-  return pathname === LEARN_PATH ? LEARN_PATH : HOME_PATH
-}
+export type AppPath = (typeof APP_PATHS)[number]
+
+const VALID_PATHS = new Set<string>(APP_PATHS)
+
+export const getAppPath = (pathname: string): AppPath =>
+  VALID_PATHS.has(pathname) ? (pathname as AppPath) : HOME_PATH

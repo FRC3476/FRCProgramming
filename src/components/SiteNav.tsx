@@ -1,5 +1,5 @@
 import type { MouseEventHandler } from 'react'
-import { HOME_PATH, LEARN_PATH, COMMUNITY_PATH, type AppPath } from '../routes'
+import { HOME_PATH, LEARN_PATH, CODEBASES_PATH, type AppPath } from '../routes'
 import './SiteNav.css'
 
 type NavLink = {
@@ -16,7 +16,7 @@ type SiteNavProps = {
 }
 
 const NAV_LINKS = [
-  { label: 'Community', path: COMMUNITY_PATH },
+  { label: 'Codebases', path: CODEBASES_PATH },
   { label: 'Learn', path: LEARN_PATH },
 ] satisfies readonly NavLink[]
 
