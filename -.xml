@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="26.06.0">
+<page number="1" position="absolute" top="0" left="0" height="1188" width="918">
+	<fontspec id="0" size="24" family="AAAAAA+ArialMT" color="#000000"/>
+	<fontspec id="1" size="21" family="AAAAAA+ArialMT" color="#424242"/>
+<text top="136" left="108" width="132" height="27" font="0">Introduction </text>
+<text top="195" left="108" width="113" height="27" font="0">Git Usage </text>
+<text top="250" left="108" width="6" height="23" font="1"> </text>
+<text top="250" left="162" width="285" height="23" font="1">Setting up your first repository </text>
+<text top="302" left="108" width="6" height="23" font="1"> </text>
+<text top="302" left="162" width="506" height="23" font="1">How to use branches + PRs + keep a clean codebase </text>
+<text top="357" left="108" width="331" height="27" font="0">Creating Your First Subsystem </text>
+<text top="412" left="108" width="6" height="23" font="1"> </text>
+<text top="412" left="162" width="212" height="23" font="1">Creating a Subsystem </text>
+<text top="464" left="108" width="6" height="23" font="1"> </text>
+<text top="464" left="162" width="198" height="23" font="1">Creating Commands </text>
+<text top="516" left="108" width="6" height="23" font="1"> </text>
+<text top="516" left="162" width="167" height="23" font="1">Creating Triggers </text>
+<text top="568" left="108" width="6" height="23" font="1"> </text>
+<text top="568" left="162" width="542" height="23" font="1">CTRE Devices (Configuration, Read APIs, ControlModes) </text>
+<text top="620" left="108" width="6" height="23" font="1"> </text>
+<text top="620" left="162" width="131" height="23" font="1">Motion Magic </text>
+<text top="674" left="108" width="366" height="27" font="0">Creating Your Second Subsystem </text>
+<text top="730" left="108" width="6" height="23" font="1"> </text>
+<text top="730" left="162" width="150" height="23" font="1">State Machines </text>
+<text top="782" left="108" width="6" height="23" font="1"> </text>
+<text top="782" left="162" width="170" height="23" font="1">Logging + Replay </text>
+<text top="837" left="108" width="165" height="27" font="0">Creating Autos </text>
+<text top="892" left="108" width="6" height="23" font="1"> </text>
+<text top="892" left="162" width="299" height="23" font="1">Different Auto Pathing Routines </text>
+<text top="944" left="162" width="130" height="23" font="1">Vision Basics </text>
+<text top="999" left="108" width="203" height="27" font="0">Advanced thingies </text>
+<text top="1055" left="108" width="6" height="23" font="1"> </text>
+<text top="1055" left="162" width="122" height="23" font="1">Unit libraries </text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1188" width="918">
+	<fontspec id="2" size="17" family="AAAAAA+ArialMT" color="#000000"/>
+<text top="109" left="162" width="183" height="23" font="1">Advanced Controls </text>
+<text top="160" left="162" width="162" height="23" font="1">Vision Advanced </text>
+<text top="212" left="162" width="227" height="23" font="1">Simulation Visualization </text>
+<text top="264" left="108" width="6" height="23" font="1"> </text>
+<text top="264" left="162" width="211" height="23" font="1">Project Management? </text>
+<text top="298" left="108" width="5" height="18" font="2"> </text>
+<text top="344" left="108" width="6" height="23" font="1"> </text>
+</page>
+<outline>
+<item page="1">Introduction </item>
+<item page="1">Git Usage </item>
+<outline>
+<item page="1">​Setting up your first repository </item>
+<item page="1">​How to use branches + PRs + keep a clean codebase </item>
+</outline>
+<item page="1">Creating Your First Subsystem </item>
+<outline>
+<item page="1">​Creating a Subsystem </item>
+<item page="1">​Creating Commands </item>
+<item page="1">​Creating Triggers </item>
+<item page="1">​CTRE Devices (Configuration, Read APIs, ControlModes) </item>
+<item page="1">​Motion Magic </item>
+</outline>
+<item page="1">Creating Your Second Subsystem </item>
+<outline>
+<item page="1">​State Machines </item>
+<item page="1">​Logging + Replay </item>
+</outline>
+<item page="1">Creating Autos </item>
+<outline>
+<item page="1">​Different Auto Pathing Routines </item>
+<item page="1">Vision Basics </item>
+</outline>
+<item page="1">Advanced thingies </item>
+<outline>
+<item page="1">​Unit libraries </item>
+<item page="2">Advanced Controls </item>
+<item page="2">Vision Advanced </item>
+<item page="2">Simulation Visualization </item>
+<item page="2">​Project Management? </item>
+<item page="2"> </item>
+</outline>
+</outline>
+</pdf2xml>
