@@ -18,5 +18,8 @@ export const git: CurriculumSection[] = [
             title: 'How to use branches + PRs + keep a clean codebase',
           },
         ],
+        content: [
+          {type: 'text', body: "Use it. Doesn't matter if you're the sole programmer on your team, use it. You will regret not using Git properly once you touched 3 different subsystems but you really only wanted to change one and now you have to either manually revert everything or delete everything."}
+        ]
       }
 ];
