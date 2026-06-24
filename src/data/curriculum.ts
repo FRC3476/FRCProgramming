@@ -6,9 +6,9 @@ export type CurriculumSubheading = {
 
 export type CurriculumContentBlock =
   | { type: 'text'; body: string }
-  | { type: 'gif'; src: string; alt: string } 
-  | { type: 'video'; src: string; alt: string }
-  | { type: 'image'; src: string; alt: string }
+  | { type: 'gif'; src: string; caption?: string }
+  | { type: 'video'; src: string; caption?: string }
+  | { type: 'image'; src: string; caption?: string }
 
 
 export type CurriculumSection = {

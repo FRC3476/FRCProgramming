@@ -39,9 +39,11 @@
   --size-subheading: 40px;
   --weight-subheading: 50;
 
-  --font-body: 'Inconsolata', sans-serif;
-  --size-body: 20px;
+  --font-body: 'Inter', sans-serif;
+  --size-body: 18px;
   --weight-body: 0;
+  --line-height-base: 1.6;
+  --letter-spacing: 0;
 
   --curriculum-top-padding: 10vh;
 }
