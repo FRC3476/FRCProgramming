@@ -1,6 +1,3 @@
-html {
-  scroll-snap-type: y proximity;
-}
 
 .curriculum {
   box-sizing: border-box;
@@ -8,22 +5,31 @@ html {
   margin-inline: auto;
 }
 
+.curriculum-page,
+.curriculum-page [id] {
+  scroll-margin-top: var(--curriculum-top-padding);
+}
+
 .curriculum-page {
   min-height: 100svh;
-  scroll-snap-align: start;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 3rem clamp(1.25rem, 5vw, 3rem);
+  padding: 3rem clamp(2rem, 10vw, 8rem);
+}
+
+.curriculum-page:first-child {
+  justify-content: flex-start;
+  padding-block-start: var(--curriculum-top-padding);
 }
 
 .curriculum-page h1 {
-  margin: 0;
+  margin: 10px 0;
   font-family: var(--font-header);
   font-weight: var(--weight-header);
   letter-spacing: var(--tracking-header);
   font-size: var(--size-header);
-  color: var(--heading);
+  color: var(--light-red);
 }
 
 .curriculum-page h2 {
@@ -31,13 +37,25 @@ html {
   font-family: var(--font-subheading);
   font-weight: var(--weight-subheading);
   font-size: var(--size-subheading);
-  color: var(--subheading);
+  color: var(--yellow);
   padding-inline-start: 2rem;
   margin-block-start: 2rem;
+}
+
+.curriculum-page p {
+  font-family: var(--font-body);
+  font-weight: var(--weight-body);
+  font-size: var(--size-body);
+  color: var(--fg1);
+  padding-inline-start: 4rem;
 }
 
 @media (max-width: 640px) {
   .curriculum-page {
     padding-block: 2rem;
+  }
+
+  .curriculum-page:first-child {
+    padding-block-start: var(--curriculum-top-padding);
   }
 }

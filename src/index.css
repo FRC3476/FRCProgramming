@@ -1,28 +1,61 @@
 :root {
-  --bg: #0e0e0e;
+  --bg: #282828;
+  --red: #cc241d;
+  --green: #98971a;
+  --yellow: #d79921;
+  --blue: #458588;
+  --purple: #b16286;
+  --aqua: #689d6a;
+  --light-gray: #a89984;
+  --dark-gray: #928374;
+  --light-red: #fb4934;
+  --light-green: #b8bb26;
+  --light-yellow: #fabd3f;
+  --light-blue: #83a598;
+  --light-purple: #d3869b;
+  --light-agua: #8ec07c;
+  --fg: #ebdbb2;
+  --bg0_h: #1d2021;
+  --bg1: #3c3836;
+  --bg2: #504945;
+  --bg3: #665c54;
+  --bg4: #7c6f64;
+  --gray: #928374;
+  --orange: #d65d0e;
+  --bg0-s: #32302f;
+  --fg4: #a89984;
+  --fg3: #bdae93;
+  --fg2: #d5c4a1;
+  --fg1: #ebdbb2;
+  --fg0: #fbf1c7;
+  --light-orange: #fe8019;
 
-  --font-header: 'Red Hat Mono', monospace;
+  --font-header: 'Inconsolata', monospace;
   --size-header: 50px;
-  --weight-header: 300;
-  --heading: #ff9d5b;
+  --weight-header: 50;
 
 
-  --font-subheading: 'Red Hat Mono', monospace;
+  --font-subheading: 'Inconsolata', monospace;
   --size-subheading: 40px;
-  --weight-subheading: 400;
-  --subheading: #9e9eff;
+  --weight-subheading: 50;
 
-  --font-body: 'Rubik', sans-serif;
-  --size-body: 10px;
-  --weight-body: 400;
-  --body: #d0d0d0;
+  --font-body: 'Inconsolata', sans-serif;
+  --size-body: 20px;
+  --weight-body: 0;
 
+  --curriculum-top-padding: 10vh;
 }
 
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--curriculum-top-padding);
+  overscroll-behavior-y: none;
 }
 
 html,
@@ -34,9 +67,28 @@ body {
   margin: 0;
   min-height: 100svh;
   background: var(--bg);
+  overscroll-behavior-y: none;
 }
 
 #root {
   width: 100%;
   min-height: 100svh;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--dark-gray) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 1px;
+  height: 1px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--dark-gray);
 }
