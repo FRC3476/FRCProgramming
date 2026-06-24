@@ -1,13 +1,17 @@
 import { useEffect, useMemo } from 'react'
-import { git_curriculum } from '../data/git'
+import { git } from '../data/git'
 import { buildNavItems } from '../utils/buildNavItems'
 import { ScrollNav } from './ScrollNav'
-import './CurriculumPage.css'
+import { CurriculumContentBlocks } from './CurriculumContentBlocks'
 import { introduction } from '../data/introduction'
+import { first_subsystem } from '../data/first-subsystem'
+
+
+import './CurriculumPage.css'
 
 export function CurriculumPage() {
   const navItems = useMemo(
-    () => [...buildNavItems(introduction), ...buildNavItems(git_curriculum)],
+    () => [...buildNavItems(introduction), ...buildNavItems(git), ...buildNavItems(first_subsystem)],
     [],
   )
 
@@ -31,32 +35,51 @@ export function CurriculumPage() {
     <>
       <ScrollNav items={navItems} />
       <main className="curriculum">
+
+
+      {/* Introduction section */}
       {introduction.map((section) => (
         <section key={section.id} id={section.id} className="curriculum-page">
           <h1>{section.title}</h1>
+          {section.content && <CurriculumContentBlocks blocks={section.content} />}
           {section.subheadings?.map((sub) => (
             <div key={sub.id} id={sub.id}>
               <h2>{sub.title}</h2>
+              {sub.content && <CurriculumContentBlocks blocks={sub.content} />}
             </div>
           ))}
-          {section.content?.map((content, i) => (
-            <p key={i}>{content.type === 'text' ? content.body : null}</p>
-          ))}
+          
         </section>
       ))}
-      {git_curriculum.map((section) => (
+
+      {/* Git section */}
+      {git.map((section) => (
         <section key={section.id} id={section.id} className="curriculum-page">
           <h1>{section.title}</h1>
           {section.subheadings?.map((sub) => (
             <div key={sub.id} id={sub.id}>
               <h2>{sub.title}</h2>
-              {sub.content?.map((content, i) => (
-                <p key={i}>{content.type === 'text' ? content.body : null}</p>
-              ))}
+              {sub.content && <CurriculumContentBlocks blocks={sub.content} />}
             </div>
           ))}
         </section>
       ))}
+
+      {/* First Subsystem section */}
+      {first_subsystem.map((section) => (
+        <section key={section.id} id={section.id} className="curriculum-page">
+          <h1>{section.title}</h1>
+          {section.subheadings?.map((sub) => (
+            <div key={sub.id} id={sub.id}>
+              <h2>{sub.title}</h2>
+              {sub.content && <CurriculumContentBlocks blocks={sub.content} />}
+            </div>
+          ))}
+        </section>
+      ))}
+
+      
+
       </main>
     </>
   )
