@@ -12,18 +12,22 @@ export const introduction: CurriculumSection[] = [
 
         subheadings: [
             {
+                id: 'prereqs',
+                title: 'Prerequisites',
+                content: [
+                    {type: 'text', body: "None! While I do recommend you to look at other resources for learning Java as they will teach you a lot of the weird quirks of Java, a lot of those resources are boring as hell. In my opinon, doing something is always the best way to learn, not just following a guide (heh... irony). So even if you have no clue what you're doing, dive right into it and either sink or swim. This guide is simply supposed to help provide some sort of structure in how things are suppoed to look and operate."},
+                ]
+            }, 
+            {
                 id: 'user-guide', 
                 title: 'How to use this Website',
                 content: [
-                    {type: 'text', body: "You should be writing code BY HAND as you follow this guide, don't just copy paste code. Thus, this website was made with the intent with being viewed inside of VS Code (or whatever IDE you prefer) with the integrated browser."},
-                    {type: 'text', body: "This way, you can code while viewing this guide in a small panel so you don't need to switch windows constantly."},
+                    {type: 'text', body: "I mentioned this above, but this guide is meant to provide a structure to how your code should look roughly. You are the one still making most of the project. Thus, this website was made with the intent with being viewed inside of VS Code (or whatever IDE you prefer) with the integrated browser. This way, you can code while viewing this guide in a small panel so you don't need to switch windows constantly."},
                     {type: 'gif', src: howtobrowser,  caption: 'How to view this site in VS Code browser'},
-                    {type: 'text', body: "If you don't have access to a robot while programming, don't worry! FRC has simulation built into it. You can follow all the modules within this guide through your simulation - I recommend everyone reading this to do this actually since simulation is a lot faster than deploying code."}
-
-
+                    {type: 'text', body: "If you don't have access to a robot while programming, don't worry! FRC has simulation built into it. You can follow all the modules within this guide through your simulation — I recommend everyone reading this to do this actually since simulation is a lot faster than deploying code."},
+                    {type: 'text', body: "Since you have access to simulation, don't be afraid to experiment with things. Once you create your first subsystem, try to implement the second one without looking at a guide. Maybe try figuring out how to create an flywheel or some sort of wacky subsystem. Again, learning FRC (and programming really) is a lot of just trying stuff and seeing how it works, so try out new stuff if you want to learn."}
                 ]
             }
         ],
-
     }
 ];

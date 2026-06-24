@@ -56,6 +56,7 @@ export function CurriculumPage() {
       {git.map((section) => (
         <section key={section.id} id={section.id} className="curriculum-page">
           <h1>{section.title}</h1>
+          {section.content && <CurriculumContentBlocks blocks={section.content} />}
           {section.subheadings?.map((sub) => (
             <div key={sub.id} id={sub.id}>
               <h2>{sub.title}</h2>
