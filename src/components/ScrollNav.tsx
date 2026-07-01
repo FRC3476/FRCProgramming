@@ -82,6 +82,7 @@ export function ScrollNav({ items }: ScrollNavProps) {
     >
       <nav
         className={`scroll-nav${expanded ? ' is-expanded' : ''}`}
+        style={{ ['--nav-count' as string]: items.length }}
         aria-label="Page sections"
       >
         <ul className="scroll-nav__list">

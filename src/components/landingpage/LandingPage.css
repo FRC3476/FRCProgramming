@@ -1,0 +1,4 @@
+.landing-page {
+  justify-content: flex-start;
+  padding-block-start: var(--curriculum-top-padding);
+}

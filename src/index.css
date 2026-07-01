@@ -45,7 +45,8 @@
   --line-height-base: 1.6;
   --letter-spacing: 0;
 
-  --curriculum-top-padding: 10vh;
+  --navbar-height: 3rem;
+  --curriculum-top-padding: calc(var(--navbar-height) + 2rem);
 }
 
 *,
