@@ -1,20 +1,19 @@
-export type CurriculumSubheading = {
-  id: string
-  title: string
-  content?: CurriculumContentBlock[]
+import introductionMd from '../content/introduction.md?raw'
+import firstProjectMd from '../content/first-project.md?raw'
+import firstSubsystemMd from '../content/first-subsystem.md?raw'
+
+export type CurriculumEntry = {
+  slug: string
+  markdown: string
 }
 
-export type CurriculumContentBlock =
-  | { type: 'text'; body: string }
-  | { type: 'gif'; src: string; caption?: string }
-  | { type: 'video'; src: string; caption?: string }
-  | { type: 'image'; src: string; caption?: string }
+export const curriculum: CurriculumEntry[] = [
+  { slug: 'introduction', markdown: introductionMd },
+  { slug: 'first-project', markdown: firstProjectMd },
+  { slug: 'first-subsystem', markdown: firstSubsystemMd },
+]
 
-
-export type CurriculumSection = {
-  id: string
-  title: string
-  subheadings?: CurriculumSubheading[]
-  content?: CurriculumContentBlock[]
-}
-
+// import gitMd from '../content/git.md?raw'
+// export const gitCurriculum: CurriculumEntry[] = [
+//   { slug: 'git', markdown: gitMd },
+// ]

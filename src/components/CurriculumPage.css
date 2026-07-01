@@ -54,13 +54,13 @@
   margin-block-end: 1rem;
 }
 
-.curriculum-page .curriculum-text a {
+.curriculum-page a {
   color: var(--light-blue);
   text-decoration: underline;
   text-underline-offset: 0.15em;
 }
 
-.curriculum-page .curriculum-text a:hover {
+.curriculum-page a:hover {
   color: var(--light-yellow);
 }
 
