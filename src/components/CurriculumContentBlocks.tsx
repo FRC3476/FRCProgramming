@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import type { CurriculumContentBlock } from '../data/curriculum'
+import { parseTextWithLinks } from '../utils/parseTextWithLinks'
 import { MediaLightbox, type LightboxMedia } from './MediaLightbox'
 
 type CurriculumContentBlocksProps = {
@@ -18,7 +19,20 @@ export function CurriculumContentBlocks({ blocks }: CurriculumContentBlocksProps
           case 'text':
             return (
               <p key={`${block.type}-${i}`} className="curriculum-text">
-                {block.body}
+                {parseTextWithLinks(block.body).map((segment, j) =>
+                  segment.type === 'link' ? (
+                    <a
+                      key={j}
+                      href={segment.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {segment.label}
+                    </a>
+                  ) : (
+                    segment.value
+                  ),
+                )}
               </p>
             )
           case 'image':

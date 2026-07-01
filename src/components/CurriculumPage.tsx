@@ -1,17 +1,20 @@
 import { useEffect, useMemo } from 'react'
-import { git } from '../data/git'
 import { buildNavItems } from '../utils/buildNavItems'
 import { ScrollNav } from './ScrollNav'
 import { CurriculumContentBlocks } from './CurriculumContentBlocks'
+
+
 import { introduction } from '../data/introduction'
+import { first_project } from '../data/first-project'
 import { first_subsystem } from '../data/first-subsystem'
+// import { git } from '../data/git'
 
 
 import './CurriculumPage.css'
 
 export function CurriculumPage() {
   const navItems = useMemo(
-    () => [...buildNavItems(introduction), ...buildNavItems(git), ...buildNavItems(first_subsystem)],
+    () => [...buildNavItems(introduction), ...buildNavItems(first_project), ...buildNavItems(first_subsystem)],
     [],
   )
 
@@ -52,8 +55,8 @@ export function CurriculumPage() {
         </section>
       ))}
 
-      {/* Git section */}
-      {git.map((section) => (
+      {/* First Project section */}
+      {first_project.map((section) => (
         <section key={section.id} id={section.id} className="curriculum-page">
           <h1>{section.title}</h1>
           {section.content && <CurriculumContentBlocks blocks={section.content} />}

@@ -75,30 +75,34 @@ export function ScrollNav({ items }: ScrollNavProps) {
   }, [items])
 
   return (
-    <nav
-      className={`scroll-nav${expanded ? ' is-expanded' : ''}`}
-      aria-label="Page sections"
+    <div
+      className={`scroll-nav-container${expanded ? ' is-expanded' : ''}`}
       onMouseEnter={() => setExpanded(true)}
       onMouseLeave={() => setExpanded(false)}
     >
-      <ul className="scroll-nav__list">
-        {items.map((item) => (
-          <li
-            key={item.id}
-            className={`scroll-nav__item${item.level === 1 ? ' scroll-nav__item--sub' : ''}`}
-          >
-            <button
-              type="button"
-              className={`scroll-nav__button${activeId === item.id ? ' is-active' : ''}`}
-              aria-current={activeId === item.id ? 'true' : undefined}
-              onClick={() => scrollToItem(item.id)}
+      <nav
+        className={`scroll-nav${expanded ? ' is-expanded' : ''}`}
+        aria-label="Page sections"
+      >
+        <ul className="scroll-nav__list">
+          {items.map((item) => (
+            <li
+              key={item.id}
+              className={`scroll-nav__item${item.level === 1 ? ' scroll-nav__item--sub' : ''}`}
             >
-              <span className="scroll-nav__mark" aria-hidden="true" />
-              <span className="scroll-nav__label">{item.title}</span>
-            </button>
-          </li>
-        ))}
-      </ul>
-    </nav>
+              <button
+                type="button"
+                className={`scroll-nav__button${activeId === item.id ? ' is-active' : ''}`}
+                aria-current={activeId === item.id ? 'true' : undefined}
+                onClick={() => scrollToItem(item.id)}
+              >
+                <span className="scroll-nav__mark" aria-hidden="true" />
+                <span className="scroll-nav__label">{item.title}</span>
+              </button>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
   )
 }
