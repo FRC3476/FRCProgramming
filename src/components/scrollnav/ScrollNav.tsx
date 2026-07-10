@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { NavItem } from '../../utils/buildNavItems'
+import { ScrollNavBackLink } from './ScrollNavBackLink'
 import './ScrollNav.css'
 
 type ScrollNavProps = {
@@ -124,6 +125,7 @@ export function ScrollNav({ items }: ScrollNavProps) {
 
   return (
     <div className="scroll-nav-container">
+      <ScrollNavBackLink />
       <nav
         className="scroll-nav"
         style={{ ['--nav-count' as string]: items.length }}

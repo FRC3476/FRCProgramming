@@ -46,3 +46,8 @@ export function buildNavItems(markdown: string): NavItem[] {
 
   return items
 }
+
+export function getPageTitle(markdown: string): string {
+  const h1 = buildNavItems(markdown).find((item) => item.level === 0)
+  return h1?.title ?? 'Untitled'
+}

@@ -8,10 +8,12 @@ Having your code on Github makes things really freaking easy to version control 
 
 To make a repo, go to [github.com](https://github.com), click New Repository, and name it whatever you want and create the repo.
 
-Next, install git on your computer.
+After that, clone your repo on Github to your computer and open it up in the editor.
 
 ## Use Logging {#logging}
 
-This is probably the biggest thing I see teams missing is good logging. Logging is critical to really anything that you program. Knowing where and how something went wrong is worth so much when you're debugging, especially during a competition.
+This is probably the biggest thing I see teams missing is good logging. Logging is critical to really anything that you program, knowing where and how something went wrong is worth so much when you're debugging, especially during a competition. I cannot stress the importance of logging enough, it is sooooo freaking important and can cut down your debugging time in half.
 
 I recommend using the AdvantageKit logger made by 6328, it's packaged with the WPILib install by default so you should have it installed already. It's also what this guide will be using. To use it, go to the [AdvantageKit installation docs](https://docs.advantagekit.org/getting-started/installation/existing-projects) and follow the instructions to add to your current project
+
+Adding AdvantageKit into your project also allows for simulation, which is extremely useful for following this guide if you don't have a robot, and also useful during season since you can finish most of your code without the robot.
