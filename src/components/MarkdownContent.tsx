@@ -3,7 +3,7 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import remarkHeadingId from 'remark-heading-id'
 import rehypeSlug from 'rehype-slug'
-import { MediaLightbox, type LightboxMedia } from './MediaLightbox'
+import { MediaLightbox, type LightboxMedia } from './medialightbox/MediaLightbox'
 import { isBundledAsset, resolveAssetUrl } from '../utils/resolveAssetUrl'
 
 type MarkdownContentProps = {
@@ -16,7 +16,7 @@ export function MarkdownContent({ markdown }: MarkdownContentProps) {
   const components = useMemo(
     () => ({
       p: ({ children }: { children?: React.ReactNode }) => (
-        <p className="curriculum-text">{children}</p>
+        <p className="page-text">{children}</p>
       ),
       a: ({ href, children }: { href?: string; children?: React.ReactNode }) => (
         <a href={href} target="_blank" rel="noopener noreferrer">
@@ -31,9 +31,9 @@ export function MarkdownContent({ markdown }: MarkdownContentProps) {
         const isClickable = isBundledAsset(src) || src.endsWith('.gif')
 
         return (
-          <figure className="curriculum-media-figure">
+          <figure className="page-media-figure">
             <img
-              className={`curriculum-media${isClickable ? ' curriculum-media--clickable' : ''}`}
+              className={`page-media${isClickable ? ' page-media--clickable' : ''}`}
               src={resolvedSrc}
               alt={caption}
               onClick={
@@ -48,7 +48,7 @@ export function MarkdownContent({ markdown }: MarkdownContentProps) {
               }
             />
             {caption ? (
-              <figcaption className="curriculum-media-caption">{caption}</figcaption>
+              <figcaption className="page-media-caption">{caption}</figcaption>
             ) : null}
           </figure>
         )

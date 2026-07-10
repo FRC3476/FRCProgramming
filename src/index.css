@@ -46,7 +46,7 @@
   --letter-spacing: 0;
 
   --navbar-height: 3rem;
-  --curriculum-top-padding: calc(var(--navbar-height) + 2rem);
+  --page-top-padding: calc(var(--navbar-height) + 6rem);
 }
 
 *,
@@ -57,7 +57,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: var(--curriculum-top-padding);
+  scroll-padding-top: var(--page-top-padding);
   overscroll-behavior-y: none;
 }
 

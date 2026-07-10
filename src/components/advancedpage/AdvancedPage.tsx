@@ -1,10 +1,10 @@
-import './AdvancedPage.css'
-
 export function AdvancedPage() {
   return (
-    <main className="advanced-page">
-      <h1>Advanced</h1>
-      <p className="advanced-page__text">Content coming soon.</p>
+    <main className="page">
+      <section className="page-section">
+        <h1>Advanced</h1>
+        <p className="page-text">Content coming soon.</p>
+      </section>
     </main>
   )
 }
