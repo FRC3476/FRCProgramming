@@ -8,7 +8,7 @@ export type CurriculumEntry = {
   markdown: string
 }
 
-export const curriculum: CurriculumEntry[] = [
+export const beginnerCurriculum: CurriculumEntry[] = [
   {
     slug: 'first-project',
     title: getPageTitle(firstProjectMd),
@@ -21,7 +21,25 @@ export const curriculum: CurriculumEntry[] = [
   },
 ]
 
-// import gitMd from '../content/git.md?raw'
-// export const gitCurriculum: CurriculumEntry[] = [
-//   { slug: 'git', markdown: gitMd },
-// ]
+export const curriculaBySection = {
+  beginner: beginnerCurriculum,
+  advanced: [],
+} as const satisfies Record<string, CurriculumEntry[]>
+
+export type CurriculumSection = keyof typeof curriculaBySection
+
+export function getCurriculum(section: string): CurriculumEntry[] | undefined {
+  if (section in curriculaBySection) {
+    return curriculaBySection[section as CurriculumSection]
+  }
+  return undefined
+}
+
+export function getNextLesson(
+  entries: CurriculumEntry[],
+  slug: string,
+): CurriculumEntry | undefined {
+  const index = entries.findIndex((entry) => entry.slug === slug)
+  if (index < 0 || index >= entries.length - 1) return undefined
+  return entries[index + 1]
+}

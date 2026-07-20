@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { curriculum } from '../../data/curriculum'
+import { beginnerCurriculum } from '../../data/curriculum'
 import './BeginnerIndexPage.css'
 
 export function BeginnerIndexPage() {
@@ -13,7 +13,7 @@ export function BeginnerIndexPage() {
         </p>
         <nav className="beginner-toc" aria-label="Beginner curriculum">
           <ol className="beginner-toc__list">
-            {curriculum.map(({ slug, title }, index) => (
+            {beginnerCurriculum.map(({ slug, title }, index) => (
               <li key={slug} className="beginner-toc__item">
                 <Link to={`/beginner/${slug}`} className="beginner-toc__link">
                   <span className="beginner-toc__number">{index + 1}</span>
