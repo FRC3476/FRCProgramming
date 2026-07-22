@@ -43,3 +43,12 @@ export function getNextLesson(
   if (index < 0 || index >= entries.length - 1) return undefined
   return entries[index + 1]
 }
+
+export function getPreviousLesson(
+  entries: CurriculumEntry[],
+  slug: string,
+): CurriculumEntry | undefined {
+  const index = entries.findIndex((entry) => entry.slug === slug)
+  if (index <= 0) return undefined
+  return entries[index - 1]
+}

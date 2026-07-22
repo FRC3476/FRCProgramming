@@ -64,8 +64,13 @@
 }
 
 .page-section .page-media-figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: fit-content;
+  max-width: 100%;
   margin-block: 1rem;
-  padding-inline-start: clamp(0rem, 5vw, 4rem);
+  margin-inline: auto;
 }
 
 .page-section .page-media {
@@ -84,10 +89,99 @@
   font-size: calc(var(--size-body) * 0.9);
   color: var(--fg3);
   line-height: var(--line-height-base);
+  text-align: center;
 }
 
 .page-section .page-media--clickable {
   cursor: zoom-in;
+}
+
+.page-section .page-code-block {
+  margin-block: 0 1rem;
+  margin-inline-start: clamp(0rem, 5vw, 4rem);
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  background: var(--bg2);
+  border: 1px solid var(--bg3);
+  border-radius: 0.375rem;
+  font-family: var(--font-header);
+  font-size: calc(var(--size-body) * 0.9);
+  line-height: 1.5;
+  color: var(--fg1);
+}
+
+.page-section .page-code-block code {
+  font-family: inherit;
+  font-size: inherit;
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+
+.page-section .page-code-block .hljs-comment,
+.page-section .page-code-block .hljs-quote {
+  color: var(--gray);
+  font-style: italic;
+}
+
+.page-section .page-code-block .hljs-keyword,
+.page-section .page-code-block .hljs-selector-tag,
+.page-section .page-code-block .hljs-literal,
+.page-section .page-code-block .hljs-name,
+.page-section .page-code-block .hljs-strong {
+  color: var(--light-red);
+}
+
+.page-section .page-code-block .hljs-number,
+.page-section .page-code-block .hljs-symbol,
+.page-section .page-code-block .hljs-bullet {
+  color: var(--purple);
+}
+
+.page-section .page-code-block .hljs-string,
+.page-section .page-code-block .hljs-attr,
+.page-section .page-code-block .hljs-addition {
+  color: var(--light-green);
+}
+
+.page-section .page-code-block .hljs-variable,
+.page-section .page-code-block .hljs-template-variable,
+.page-section .page-code-block .hljs-link,
+.page-section .page-code-block .hljs-regexp {
+  color: var(--light-blue);
+}
+
+.page-section .page-code-block .hljs-title,
+.page-section .page-code-block .hljs-section,
+.page-section .page-code-block .hljs-attribute,
+.page-section .page-code-block .hljs-type {
+  color: var(--light-yellow);
+}
+
+.page-section .page-code-block .hljs-built_in,
+.page-section .page-code-block .hljs-builtin-name,
+.page-section .page-code-block .hljs-selector-id,
+.page-section .page-code-block .hljs-selector-class,
+.page-section .page-code-block .hljs-meta,
+.page-section .page-code-block .hljs-doctag {
+  color: var(--light-agua);
+}
+
+.page-section .page-code-block .hljs-emphasis {
+  font-style: italic;
+}
+
+.page-section .page-code-block .hljs-deletion {
+  color: var(--light-red);
+}
+
+.page-section .page-inline-code {
+  font-family: var(--font-header);
+  font-size: 0.92em;
+  padding: 0.1em 0.35em;
+  background: var(--bg2);
+  border-radius: 0.25rem;
+  color: var(--light-orange);
 }
 
 @media (max-width: 800px) {
