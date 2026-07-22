@@ -32,7 +32,8 @@ git commit -m "First commit"
 
 # Add remote origin
 git remote add origin <Remote repository URL>
-# <Remote repository URL> looks like: https://github.com/user/repo.git. In Github this is found by clicking the green Code button and copying the URL.
+# <Remote repository URL> looks like: https://github.com/user/repo.git.  
+# In Github, this link is found by clicking the green Code button and copying the URL.
 
 # Verifies the new remote URL
 git remote -v
