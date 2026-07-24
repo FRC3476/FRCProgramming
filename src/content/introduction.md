@@ -6,7 +6,7 @@ Most programming guides cover the basics of how to write FRC code like how to ru
 
 ## Prerequisites {#prereqs}
 
-You should have the latest stable version of WPILib installed (I will try my best to keep everything up to date) but otherwise, none! While I do recommend you to look at other resources for learning Java as they will teach you a lot of the weird quirks of Java, a lot of those resources are boring as hell. In my opinion, doing something is always the best way to learn, not just following a guide (heh... irony). So even if you have no clue what you're doing, dive right into it and either sink or swim. This guide is simply supposed to help provide some sort of structure in how things are suppoed to look and operate.
+You should have the latest stable version of WPILib installed (I will try my best to keep everything up to date) but otherwise, none! While I do recommend you to look at other resources for learning Java as they will teach you a lot of the weird quirks of Java, a lot of those resources are boring as hell. In my opinion, doing something is always the best way to learn, not just following a guide. So even if you have no clue what you're doing, dive right into it and either sink or swim. This guide is simply supposed to help provide some sort of structure in how things are suppoed to look and operate.
 
 ## How to use this Website {#user-guide}
 

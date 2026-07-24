@@ -2,6 +2,7 @@ import { Children, isValidElement, useMemo, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import remarkHeadingId from 'remark-heading-id'
+import rehypeRaw from 'rehype-raw'
 import rehypeSlug from 'rehype-slug'
 import rehypeHighlight from 'rehype-highlight'
 import { MediaLightbox, type LightboxMedia } from './medialightbox/MediaLightbox'
@@ -90,7 +91,7 @@ export function MarkdownContent({ markdown }: MarkdownContentProps) {
     <>
       <ReactMarkdown
         remarkPlugins={[remarkGfm, remarkHeadingId]}
-        rehypePlugins={[rehypeSlug, rehypeHighlight]}
+        rehypePlugins={[rehypeRaw, rehypeSlug, rehypeHighlight]}
         components={components}
       >
         {markdown}

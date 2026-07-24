@@ -1,5 +1,6 @@
 import firstProjectMd from '../content/beginner/first-project.md?raw'
 import firstSubsystemMd from '../content/beginner/first-subsystem.md?raw'
+import writingCodeMd from '../content/beginner/writing-code.md?raw'
 import { getPageTitle } from '../utils/buildNavItems'
 
 export type CurriculumEntry = {
@@ -19,6 +20,11 @@ export const beginnerCurriculum: CurriculumEntry[] = [
     title: getPageTitle(firstSubsystemMd),
     markdown: firstSubsystemMd,
   },
+  {
+    slug: 'writing-code',
+    title: getPageTitle(writingCodeMd),
+    markdown: writingCodeMd,
+  }
 ]
 
 export const curriculaBySection = {

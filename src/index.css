@@ -32,12 +32,16 @@
 
   --font-header: 'Inconsolata', monospace;
   --size-header: 50px;
-  --weight-header: 50;
+  --weight-header: 300;
 
 
   --font-subheading: 'Inconsolata', monospace;
-  --size-subheading: 40px;
-  --weight-subheading: 50;
+  --size-subheading: 37px;
+  --weight-subheading: 300;
+
+  --font-subsubheading: 'Inconsolata', monospace;
+  --size-subsubheading: 32px;
+  --weight-subsubheading: 300;
 
   --font-body: 'Inter', sans-serif;
   --size-body: 18px;

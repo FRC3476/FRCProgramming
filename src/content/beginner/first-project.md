@@ -1,4 +1,4 @@
-# Creating Your First Project {#first_project}
+# Creating Your First Project {#first-project}
 
 Before writing any line of code, there's a lot of stuff that goes prior to that which will make your life a lot easier. Feel free to skip this section if you don't think you need it.
 
@@ -10,7 +10,7 @@ I recommend using the AdvantageKit logger made by 6328, it's packaged with the W
 
 Adding AdvantageKit into your project also allows for simulation, which is extremely useful for following this guide if you don't have a robot, and also useful during season since you can finish most of your code without the robot.
 
-![AdvantageScope example](../assets/first-project/akitExample.png)
+![AdvantageScope example](../assets/beginner/first-project/akitExample.png)
 
 ## Use Github (or any git hosting service) {#github}
 
