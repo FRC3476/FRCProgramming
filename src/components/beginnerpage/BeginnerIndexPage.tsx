@@ -12,16 +12,17 @@ export function BeginnerIndexPage() {
           section navigation.
         </p>
         <nav className="beginner-toc" aria-label="Beginner curriculum">
-          <ol className="beginner-toc__list">
+          <ul className="beginner-toc__list">
             {beginnerCurriculum.map(({ slug, title }, index) => (
               <li key={slug} className="beginner-toc__item">
                 <Link to={`/beginner/${slug}`} className="beginner-toc__link">
-                  <span className="beginner-toc__number">{index + 1}</span>
-                  <span className="beginner-toc__title">{title}</span>
+                  <span className="beginner-toc__title">
+                    {index + 1}. {title}
+                  </span>
                 </Link>
               </li>
             ))}
-          </ol>
+          </ul>
         </nav>
       </section>
     </main>

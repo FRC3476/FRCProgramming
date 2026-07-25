@@ -1,6 +1,12 @@
 # Creating Your First Project {#first-project}
 
-Before writing any line of code, there's a lot of stuff that goes prior to that which will make your life a lot easier. Feel free to skip this section if you don't think you need it.
+Before writing any line of code, there's a lot of stuff that goes prior to that which will make your life a lot easier. 
+
+## Code Structure
+
+FRC programming has 3 main layers, hardware, logic, and then controls. 
+
+
 
 ## Use Logging {#logging}
 

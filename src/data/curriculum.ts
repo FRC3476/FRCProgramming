@@ -1,6 +1,7 @@
 import firstProjectMd from '../content/beginner/first-project.md?raw'
 import firstSubsystemMd from '../content/beginner/first-subsystem.md?raw'
-import writingCodeMd from '../content/beginner/writing-code.md?raw'
+import writingHardwareMd from '../content/beginner/writing-hardware.md?raw'
+import writingSoftwareMd from '../content/beginner/writing-software.md?raw'
 import { getPageTitle } from '../utils/buildNavItems'
 
 export type CurriculumEntry = {
@@ -21,9 +22,14 @@ export const beginnerCurriculum: CurriculumEntry[] = [
     markdown: firstSubsystemMd,
   },
   {
-    slug: 'writing-code',
-    title: getPageTitle(writingCodeMd),
-    markdown: writingCodeMd,
+    slug: 'writing-hardware',
+    title: getPageTitle(writingHardwareMd),
+    markdown: writingHardwareMd,
+  },
+  {
+    slug: 'writing-software',
+    title: getPageTitle(writingSoftwareMd),
+    markdown: writingSoftwareMd,
   }
 ]
 

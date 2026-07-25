@@ -22,9 +22,7 @@
 }
 
 .beginner-toc__link {
-  display: flex;
-  align-items: baseline;
-  gap: 1rem;
+  display: block;
   padding: 1rem 1.25rem;
   border: 1px solid color-mix(in srgb, var(--gray) 35%, transparent);
   border-radius: 0.375rem;
@@ -37,15 +35,6 @@
 .beginner-toc__link:hover {
   border-color: var(--light-yellow);
   background-color: color-mix(in srgb, var(--bg1) 70%, transparent);
-}
-
-.beginner-toc__number {
-  flex-shrink: 0;
-  font-family: var(--font-header);
-  font-size: calc(var(--size-subheading) * 0.55);
-  font-weight: var(--weight-header);
-  color: var(--light-red);
-  line-height: 1;
 }
 
 .beginner-toc__title {

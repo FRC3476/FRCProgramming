@@ -29,7 +29,9 @@
   letter-spacing: var(--tracking-header);
   font-size: var(--size-header);
   color: var(--light-red);
+  margin-block-end: 2rem;
 }
+
 
 .page-section h2 {
   margin: 0;
@@ -38,7 +40,7 @@
   font-size: var(--size-subheading);
   color: var(--yellow);
   padding-inline-start: clamp(0rem, 2.5vw, 2rem);
-  margin-block-start: 2rem;
+  margin-block-start: 0.5rem;
   margin-block-end: 2vh;
 }
 
