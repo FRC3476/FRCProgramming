@@ -1,5 +1,5 @@
 :root {
-  --bg: #282828;
+  --bg: #000000;
   --red: #cc241d;
   --green: #98971a;
   --yellow: #d79921;
@@ -16,9 +16,9 @@
   --light-agua: #8ec07c;
   --fg: #ebdbb2;
   --bg0_h: #1d2021;
-  --bg1: #3c3836;
-  --bg2: #504945;
-  --bg3: #665c54;
+  --bg1: #000000;
+  --bg2: #161616;
+  --bg3: #333333;
   --bg4: #7c6f64;
   --gray: #928374;
   --orange: #d65d0e;
@@ -32,12 +32,16 @@
 
   --font-header: 'Inconsolata', monospace;
   --size-header: 50px;
-  --weight-header: 50;
+  --weight-header: 300;
 
 
   --font-subheading: 'Inconsolata', monospace;
-  --size-subheading: 40px;
-  --weight-subheading: 50;
+  --size-subheading: 37px;
+  --weight-subheading: 300;
+
+  --font-subsubheading: 'Inconsolata', monospace;
+  --size-subsubheading: 32px;
+  --weight-subsubheading: 300;
 
   --font-body: 'Inter', sans-serif;
   --size-body: 18px;
@@ -45,7 +49,8 @@
   --line-height-base: 1.6;
   --letter-spacing: 0;
 
-  --curriculum-top-padding: 10vh;
+  --navbar-height: 3rem;
+  --page-top-padding: calc(var(--navbar-height) + 6rem);
 }
 
 *,
@@ -56,7 +61,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: var(--curriculum-top-padding);
+  scroll-padding-top: var(--page-top-padding);
   overscroll-behavior-y: none;
 }
 

@@ -55,6 +55,26 @@
   cursor: default;
 }
 
+.media-lightbox__media--zoomable {
+  cursor: zoom-in;
+  transition: transform 0.2s ease;
+}
+
+.media-lightbox__media--zoomed {
+  transform: scale(2);
+  cursor: zoom-out;
+}
+
+.media-lightbox__media--zoomed:active {
+  cursor: grabbing;
+}
+
+.media-lightbox__media--panning {
+  cursor: grabbing;
+  transition: none;
+  user-select: none;
+}
+
 .media-lightbox__caption {
   max-width: min(70vw, 95vw);
   margin: 0;
