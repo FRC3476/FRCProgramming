@@ -5,8 +5,23 @@ import remarkHeadingId from 'remark-heading-id'
 import rehypeRaw from 'rehype-raw'
 import rehypeSlug from 'rehype-slug'
 import rehypeHighlight from 'rehype-highlight'
+import { visit } from 'unist-util-visit'
+import type { Root, Element } from 'hast'
 import { MediaLightbox, type LightboxMedia } from './medialightbox/MediaLightbox'
 import { isBundledAsset, resolveAssetUrl } from '../utils/resolveAssetUrl'
+
+// Copies the code fence meta (the text after the language, e.g. ```java My label)
+// into a data attribute, because rehype-raw would otherwise strip it.
+function rehypeCodeMeta() {
+  return (tree: Root) => {
+    visit(tree, 'element', (node: Element) => {
+      const meta = node.tagName === 'code' && (node.data as { meta?: string } | undefined)?.meta
+      if (meta) {
+        node.properties.dataMeta = meta
+      }
+    })
+  }
+}
 
 type MarkdownContentProps = {
   markdown: string
@@ -18,6 +33,18 @@ function isMediaFigure(node: React.ReactNode) {
     typeof node.props.className === 'string' &&
     node.props.className.split(/\s+/).includes('page-media-figure')
   )
+}
+
+function getCodeSummary(children: React.ReactNode): string {
+  const child = Children.toArray(children)[0]
+  if (isValidElement<{ 'data-meta'?: string }>(child)) {
+    const meta = child.props['data-meta']
+    if (typeof meta === 'string' && meta.trim()) {
+      return meta.trim()
+    }
+  }
+
+  return ''
 }
 
 export function MarkdownContent({ markdown }: MarkdownContentProps) {
@@ -39,7 +66,10 @@ export function MarkdownContent({ markdown }: MarkdownContentProps) {
         </a>
       ),
       pre: ({ children }: { children?: React.ReactNode }) => (
-        <pre className="page-code-block">{children}</pre>
+        <details className="page-code-details" open>
+          <summary className="page-code-summary">{getCodeSummary(children)}</summary>
+          <pre className="page-code-block">{children}</pre>
+        </details>
       ),
       code: ({
         className,
@@ -91,7 +121,7 @@ export function MarkdownContent({ markdown }: MarkdownContentProps) {
     <>
       <ReactMarkdown
         remarkPlugins={[remarkGfm, remarkHeadingId]}
-        rehypePlugins={[rehypeRaw, rehypeSlug, rehypeHighlight]}
+        rehypePlugins={[rehypeCodeMeta, rehypeRaw, rehypeSlug, rehypeHighlight]}
         components={components}
       >
         {markdown}
