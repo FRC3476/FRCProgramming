@@ -7,7 +7,7 @@
   margin-block-start: 2rem;
 }
 
-.beginner-toc__list {
+.page-section ul.beginner-toc__list {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -17,7 +17,7 @@
   gap: 0.75rem;
 }
 
-.beginner-toc__item {
+.page-section .beginner-toc__item {
   margin: 0;
 }
 

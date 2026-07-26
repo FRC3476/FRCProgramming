@@ -1,7 +1,9 @@
 import firstProjectMd from '../content/beginner/first-project.md?raw'
 import firstSubsystemMd from '../content/beginner/first-subsystem.md?raw'
 import writingHardwareMd from '../content/beginner/writing-hardware.md?raw'
+import commands from '../content/beginner/commands.md?raw'
 import writingSoftwareMd from '../content/beginner/writing-software.md?raw'
+
 import { getPageTitle } from '../utils/buildNavItems'
 
 export type CurriculumEntry = {
@@ -25,6 +27,11 @@ export const beginnerCurriculum: CurriculumEntry[] = [
     slug: 'writing-hardware',
     title: getPageTitle(writingHardwareMd),
     markdown: writingHardwareMd,
+  },
+  {
+    slug: 'commands',
+    title: getPageTitle(commands),
+    markdown: commands,
   },
   {
     slug: 'writing-software',
