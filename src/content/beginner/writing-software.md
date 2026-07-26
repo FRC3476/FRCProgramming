@@ -22,7 +22,7 @@ public class Shooter extends Mechanism {
 }
 ```
 
-The logic layer is simply another wrapper of the hardware layer to make it command-based. The structure is very similar to the hardware layer, with the io object being the "motor" in this case. 
+The logic layer is simply another wrapper of the hardware layer to make it command-based. The structure is very similar to the hardware layer, with the ```io``` object being the "motor" in this case. 
 
 ### Code Breakdown
 ```java Logic Class

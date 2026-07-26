@@ -47,6 +47,21 @@ function getCodeSummary(children: React.ReactNode): string {
   return ''
 }
 
+function CodeSnippet({ children }: { children?: React.ReactNode }) {
+  const [open, setOpen] = useState(true)
+
+  return (
+    <details
+      className="page-code-details"
+      open={open}
+      onToggle={(event) => setOpen(event.currentTarget.open)}
+    >
+      <summary className="page-code-summary">{getCodeSummary(children)}</summary>
+      <pre className="page-code-block">{children}</pre>
+    </details>
+  )
+}
+
 export function MarkdownContent({ markdown }: MarkdownContentProps) {
   const [lightboxMedia, setLightboxMedia] = useState<LightboxMedia | null>(null)
 
@@ -66,10 +81,7 @@ export function MarkdownContent({ markdown }: MarkdownContentProps) {
         </a>
       ),
       pre: ({ children }: { children?: React.ReactNode }) => (
-        <details className="page-code-details" defaultOpen>
-          <summary className="page-code-summary">{getCodeSummary(children)}</summary>
-          <pre className="page-code-block">{children}</pre>
-        </details>
+        <CodeSnippet>{children}</CodeSnippet>
       ),
       code: ({
         className,

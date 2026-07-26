@@ -49,7 +49,16 @@ if (RobotBase.isSimulation()) {
 ```
 The motorSim object updates the real motor's StatusSignals when we're in a simulation, meaning that all of our previous logging works. It also means that we have to update it if we want a proper simulation.
 
-##
+## How to Simulates
+Simulating is pretty easy, simply click the WPILib symbol and click the Simulate Robot Code option. Once the code builds, click the Sim GUI. You make sure to enable Desktop Support in your build.gradle. After that open AdvantageScope and connect to the simulation with it. 
+
+To add keyboard controls in the sim, assign your keyboard to the joystick number in your code like so: 
+![Simulation Controls](../assets/beginner/sim-controls.png)
+
+After that, make sure to enable teleop to actually start the code:
+![Enable Teleop Sim](../assets/beginner/enable-teleop-sim.png)
+
+
 ## Final Code
 ```java Hardware Class
 package first.subsystems.shooter;
