@@ -16,7 +16,7 @@ I recommend using the AdvantageKit logger made by 6328, it's packaged with the W
 
 Adding AdvantageKit into your project also allows for simulation, which is extremely useful for following this guide if you don't have a robot, and also useful during season since you can finish most of your code without the robot.
 
-![AdvantageScope example](../assets/beginner/first-project/akitExample.png)
+![AdvantageScope example](../assets/beginner/akitExample.png)
 
 ## Use Github (or any git hosting service) {#github}
 

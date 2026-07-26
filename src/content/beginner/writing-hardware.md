@@ -8,7 +8,7 @@ Create a class by right-clicking the folder you want the file in and click new J
 
 We first want to begin by defining our hardware. In this case, the simplest subsystem would just be a singular motor. We can also apply some configuration values to it.
 
-```java
+```java Hardware Class
 private final TalonFX motor;
 
 public ShooterIO() {
@@ -29,7 +29,7 @@ public ShooterIO() {
 
 Next, we need to add functions to make the motor actually spin. Simply add a function like so:
 
-```java
+```java Hardware Class
 private final DutyCycleOut dutyCycleOut = new DutyCycleOut(0).withEnableFOC(true);
 
 public void spinMotor(double dutyCycle) {
@@ -39,7 +39,7 @@ public void spinMotor(double dutyCycle) {
 
 ### Code Breakdown 
 
-```java
+```java Hardware Class
 private final /*<--variable modifiers*/ TalonFX /*<--class*/ motor /*<--object*/;
 
 public ShooterIO() {
@@ -65,7 +65,7 @@ We then intialize the TalonFX object in the constructor. A good mental model is 
 
 The configuration is then applied below, this is where you can set if your want your motor to brake when at 0 power or not, what the limits on the amount of power you want your motors to use, etc. The CTRE documentation has a whole list on the configs that are available.
 
-```java
+```java Hardware Class
 private final DutyCycleOut dutyCycleOut = new DutyCycleOut(0); 
 
 public void spinMotor(double dutyCycle) /*<--this is the function's input*/ {
@@ -79,7 +79,7 @@ Next, we create a function that sets the control of the motor. We take the duty 
 
 ## Final Code
 
-```java
+```java Hardware Class
 package first.subsystems.shooter;
 
 import com.ctre.phoenix6.controls.DutyCycleOut;

@@ -4,6 +4,7 @@ import writingHardwareMd from '../content/beginner/writing-hardware.md?raw'
 import commands from '../content/beginner/commands.md?raw'
 import writingSoftwareMd from '../content/beginner/writing-software.md?raw'
 import addLoggingMd from '../content/beginner/add-logging.md?raw'
+import addSimulationMd from '../content/beginner/add-simulation.md?raw'
 
 
 import { getPageTitle } from '../utils/buildNavItems'
@@ -44,6 +45,11 @@ export const beginnerCurriculum: CurriculumEntry[] = [
     slug: 'add-logging',
     title: getPageTitle(addLoggingMd),
     markdown: addLoggingMd,
+  },
+  {
+    slug: 'add-simulation',
+    title: getPageTitle(addSimulationMd),
+    markdown: addSimulationMd,
   }
 ]
 

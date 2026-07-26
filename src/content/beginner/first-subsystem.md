@@ -11,7 +11,7 @@ An example of this could be the Reefscape (2025) season. A lot of teams had an e
 ## Setting up your first subsytem {#setting-up-your-first-subsystem}
 Setting up a subsystem is really simple. Create a subsystem folder inside of your default robot folder and then create your robot subsystem folder to place in your Java files.
 
-![Picture of folder structure](../assets/beginner/first-subsystem/folder-structure.png)
+![Picture of folder structure](../assets/beginner/folder-structure.png)
 
 In your subsystem folder, make 3 java files. I'll be calling the subsystem "Shooter" as an example, but you can name it whatever you want it to be.
 

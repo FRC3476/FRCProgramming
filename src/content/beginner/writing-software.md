@@ -4,7 +4,7 @@ Now is the layer which we start to expose all the functions to be used in the co
 
 ## Writing Logic 
 
-```java
+```java Logic Class
 public class Shooter extends Mechanism {
   private final ShooterIO io;
 
@@ -25,14 +25,14 @@ public class Shooter extends Mechanism {
 The logic layer is simply another wrapper of the hardware layer to make it command-based. The structure is very similar to the hardware layer, with the io object being the "motor" in this case. 
 
 ### Code Breakdown
-```java
+```java Logic Class
 public class Shooter extends Mechanism
 ```
 We extend the Mechanism class, which allows us to attach the commands defined here to attach to the scheduler. It's what allows this class to be a subsystem. DO NOT FORGET TO EXTEND THIS, makes for a really annoying debugging experience.
 
 This code here is using the new Command framework, Commands v3, and so subsystems have been renamed to mechanism. The same concepts apply to both however. 
 
-```java
+```java Logic Class
 private final ShooterIO io;
 
 public Shooter() {
@@ -41,7 +41,7 @@ public Shooter() {
 ```
 We initialize the io object.
 
-```java
+```java Logic Class
 public Command spin(double dutyCycle) {
     return runRepeatedly(() -> io.spinMotor(dutyCycle)).named("ShooterSpin");
 }
@@ -56,7 +56,7 @@ You might notice the () -> [function] notation used within the runRepeatedly. In
 We then need to name the functions. 
 
 ## Final Code
-```java
+```java Logic Class
 package first.subsystems.shooter;
 
 import org.wpilib.command3.Command;

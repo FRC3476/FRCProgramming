@@ -3,7 +3,7 @@
 ## AdvantageKit Logging
 Logging with AdvantageKit is really easy. In your hardware class, create a class at the top like so: 
 
-```java
+```java Hardware Class
 @AutoLog
 public static class ShooterInputs {
     public int canId;
@@ -19,7 +19,7 @@ public static class ShooterInputs {
 This class should define all the values that you want logged. The neat thing about AdvantageKit is the @AutoLog annotation above the class, it does all the logging auto-magically for you. 
 
 Next, we need to add a way for the motor to report its values to be logged. The StatusSignal allows us to access the values that a motor has stored. Simply add these objects to the class:
-```java
+```java Hardware Class
 private final StatusSignal<Angle> position;
 private final StatusSignal<AngularVelocity> velocity;
 private final StatusSignal<Current> supplyCurrent;
@@ -31,7 +31,7 @@ private final StatusSignal<Temperature> temperature;
 CANid in this case is not a value that the motor reports so it's not included.
 
 Next, intialize all of the values in the constructor with the motor's values:
-```java
+```java Hardware Class
 position = motor.getPosition();
 velocity = motor.getVelocity();
 supplyCurrent = motor.getSupplyCurrent();
@@ -44,7 +44,7 @@ temperature = motor.getDeviceTemp();
 Same as with the motor object, we intialize these in the constructor. This doesn't read anything yet, it just hooks each signal up to the motor so we can use them later.
 
 Next, we need to have some method to update the logging. We can refresh a device's StatusSignals and then assign them with a function like so:
-```java
+```java Hardware Class
 public void refreshSignals(ShooterInputs inputs){
     BaseStatusSignal.refreshAll(
         position, velocity, supplyCurrent, statorCurrent, supplyVoltage, motorVoltage, temperature); 
@@ -62,8 +62,8 @@ public void refreshSignals(ShooterInputs inputs){
 
 This is the function that actually updates the logging. `refreshAll` asks the motor for the newest values on every signal, then we copy those values into the inputs object. The `.in(...)` part is just converting into the units we want stored. canId gets set from constants since the motor doesn't report that itself.
 
-You want to call this from the logic layer every loop so the logged values stay up to date:
-```java
+You want to call this from the **logic layer** every loop so the logged values stay up to date:
+```java Logic Class
     //might error once you add it, you'll need to build first to generate the autologged class
     private final ShooterInputsAutoLogged inputs = new ShooterInputsAutoLogged();
 
@@ -186,6 +186,5 @@ public class Shooter extends Mechanism {
   }
 }
 ```
-
 
 

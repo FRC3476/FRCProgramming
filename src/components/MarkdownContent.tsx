@@ -66,7 +66,7 @@ export function MarkdownContent({ markdown }: MarkdownContentProps) {
         </a>
       ),
       pre: ({ children }: { children?: React.ReactNode }) => (
-        <details className="page-code-details" open>
+        <details className="page-code-details" defaultOpen>
           <summary className="page-code-summary">{getCodeSummary(children)}</summary>
           <pre className="page-code-block">{children}</pre>
         </details>
@@ -120,6 +120,7 @@ export function MarkdownContent({ markdown }: MarkdownContentProps) {
   return (
     <>
       <ReactMarkdown
+        key={markdown}
         remarkPlugins={[remarkGfm, remarkHeadingId]}
         rehypePlugins={[rehypeCodeMeta, rehypeRaw, rehypeSlug, rehypeHighlight]}
         components={components}
