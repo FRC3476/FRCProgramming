@@ -9,9 +9,33 @@ type ScrollNavProps = {
 
 const ACTIVE_OFFSET_RATIO = 0.4
 const SCROLL_END_DEBOUNCE_MS = 100
+const FULL_NAV_WIDTH_REM = 16.25
+const OVERLAP_HYSTERESIS_PX = 8
+const CONTENT_SELECTOR = [
+  '.page-section .page-text',
+  '.page-section h1',
+  '.page-section h2',
+  '.page-section h3',
+  '.page-section ol',
+  '.page-section ul',
+  '.page-section .page-code-details',
+].join(', ')
 
 function getActiveLine(): number {
   return window.innerHeight * ACTIVE_OFFSET_RATIO
+}
+
+function remToPx(rem: number): number {
+  return rem * parseFloat(getComputedStyle(document.documentElement).fontSize)
+}
+
+function rangesOverlap(
+  aTop: number,
+  aBottom: number,
+  bTop: number,
+  bBottom: number,
+): boolean {
+  return aTop < bBottom && aBottom > bTop
 }
 
 function stepActiveIndex(
@@ -45,8 +69,26 @@ function indexFromId(items: NavItem[], id: string): number {
   return index >= 0 ? index : 0
 }
 
+function measureContentOverlap(navRect: DOMRect, thresholdRight: number): boolean {
+  const nodes = document.querySelectorAll(CONTENT_SELECTOR)
+
+  for (const node of nodes) {
+    const rect = node.getBoundingClientRect()
+    if (rect.width === 0 && rect.height === 0) continue
+    if (!rangesOverlap(rect.top, rect.bottom, navRect.top, navRect.bottom)) continue
+    if (rect.left < thresholdRight) {
+      return true
+    }
+  }
+
+  return false
+}
+
 export function ScrollNav({ items }: ScrollNavProps) {
   const [activeId, setActiveId] = useState<string>(items[0]?.id ?? '')
+  const [isCompact, setIsCompact] = useState(false)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const isCompactRef = useRef(false)
   const activeIndexRef = useRef(0)
   const lastScrollYRef = useRef(0)
 
@@ -123,9 +165,60 @@ export function ScrollNav({ items }: ScrollNavProps) {
     }
   }, [items])
 
+  useEffect(() => {
+    const container = containerRef.current
+    if (!container) return
+
+    const updateCompact = () => {
+      const navRect = container.getBoundingClientRect()
+      const fullNavRight = navRect.left + remToPx(FULL_NAV_WIDTH_REM)
+
+      if (isCompactRef.current) {
+        const stillOverlapping = measureContentOverlap(
+          navRect,
+          fullNavRight + OVERLAP_HYSTERESIS_PX,
+        )
+        if (!stillOverlapping) {
+          isCompactRef.current = false
+          setIsCompact(false)
+        }
+        return
+      }
+
+      const overlapping = measureContentOverlap(navRect, fullNavRight)
+      if (overlapping) {
+        isCompactRef.current = true
+        setIsCompact(true)
+      }
+    }
+
+    updateCompact()
+
+    const onScrollOrResize = () => {
+      updateCompact()
+    }
+
+    window.addEventListener('scroll', onScrollOrResize, { passive: true })
+    window.addEventListener('resize', onScrollOrResize)
+
+    const resizeObserver = new ResizeObserver(updateCompact)
+    resizeObserver.observe(container)
+    const page = document.querySelector('.page')
+    if (page) resizeObserver.observe(page)
+
+    return () => {
+      window.removeEventListener('scroll', onScrollOrResize)
+      window.removeEventListener('resize', onScrollOrResize)
+      resizeObserver.disconnect()
+    }
+  }, [items])
+
   return (
-    <div className="scroll-nav-container">
-      <ScrollNavBackLink />
+    <div
+      ref={containerRef}
+      className={`scroll-nav-container${isCompact ? ' is-compact' : ''}`}
+    >
+      <ScrollNavBackLink isCompact={isCompact} />
       <nav
         className="scroll-nav"
         style={{ ['--nav-count' as string]: items.length }}
@@ -141,10 +234,13 @@ export function ScrollNav({ items }: ScrollNavProps) {
                 type="button"
                 className={`scroll-nav__button${activeId === item.id ? ' is-active' : ''}`}
                 aria-current={activeId === item.id ? 'true' : undefined}
+                aria-label={isCompact ? item.title : undefined}
                 onClick={() => scrollToItem(item.id)}
               >
                 <span className="scroll-nav__mark" aria-hidden="true" />
-                <span className="scroll-nav__label">{item.title}</span>
+                <span className="scroll-nav__label" aria-hidden={isCompact ? true : undefined}>
+                  {item.title}
+                </span>
               </button>
             </li>
           ))}
