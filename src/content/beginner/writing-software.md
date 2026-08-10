@@ -28,7 +28,10 @@ The logic layer is simply another wrapper of the hardware layer to make it comma
 ```java Logic Class
 public class Shooter extends Mechanism
 ```
-We extend the Mechanism class, which allows us to attach the commands defined here to attach to the scheduler. It's what allows this class to be a subsystem. DO NOT FORGET TO EXTEND THIS, makes for a really annoying debugging experience.
+We extend the Mechanism class, which allows us to attach the commands defined here to attach to the scheduler. It's what allows this class to be a subsystem.
+
+> [!IMPORTANT]
+> DO NOT FORGET TO EXTEND THIS — it makes for a really annoying debugging experience.
 
 This code here is using the new Command framework, Commands v3, and so subsystems have been renamed to mechanism. The same concepts apply to both however. 
 
@@ -51,7 +54,10 @@ public Command stop() {
 ```
 This is the commands that we want the subsystem to have, what actions it's allowed to have. 
 
-You might notice the () -> [function] notation used within the runRepeatedly. In essence, it describes an object that is a function. 
+> [!KEY]
+> You might notice the () -> [function] notation used within the runRepeatedly, called lambda notation. In essence, it's function that is an object. The paratheses of the lambda function is the parameters we pass into it. Here, since we don't have any arguments passed in, it's a void function and it just runs the io.stop function. 
+> 
+> The reason why we do this is to give the Scheduler an object. Since the ```io.stop()``` function doesn't return anything, there no way give an object without the lambda function.
 
 We then need to name the functions. 
 

@@ -9,6 +9,7 @@ import { visit } from 'unist-util-visit'
 import type { Root, Element } from 'hast'
 import { MediaLightbox, type LightboxMedia } from './medialightbox/MediaLightbox'
 import { isBundledAsset, resolveAssetUrl } from '../utils/resolveAssetUrl'
+import { remarkCallouts } from '../utils/remarkCallouts'
 
 // Copies the code fence meta (the text after the language, e.g. ```java My label)
 // into a data attribute, because rehype-raw would otherwise strip it.
@@ -47,6 +48,46 @@ function getCodeSummary(children: React.ReactNode): string {
   return ''
 }
 
+function LightbulbMark() {
+  return (
+    <svg
+      className="page-callout__icon"
+      viewBox="0 0 24 24"
+      width="1em"
+      height="1em"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path
+        fill="currentColor"
+        d="M9 21h6v-1.5H9V21zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1-.85.6V16h-4v-2.3l-.85-.6C8.29 12.25 7.5 10.72 7.5 9c0-2.48 2.02-4.5 4.5-4.5s4.5 2.02 4.5 4.5c0 1.72-.79 3.25-2.15 4.1z"
+      />
+    </svg>
+  )
+}
+
+function CalloutAside({
+  className,
+  children,
+  mark,
+}: {
+  className: string
+  children?: React.ReactNode
+  mark: React.ReactNode
+}) {
+  return (
+    <aside className={className} role="note">
+      <div className="page-callout__divider" aria-hidden="true">
+        <span className="page-callout__mark">{mark}</span>
+      </div>
+      <div className="page-callout__body">{children}</div>
+      <div className="page-callout__divider" aria-hidden="true">
+        <span className="page-callout__mark">{mark}</span>
+      </div>
+    </aside>
+  )
+}
+
 function CodeSnippet({ children }: { children?: React.ReactNode }) {
   const [open, setOpen] = useState(true)
 
@@ -80,6 +121,35 @@ export function MarkdownContent({ markdown }: MarkdownContentProps) {
           {children}
         </a>
       ),
+      aside: ({
+        className,
+        children,
+      }: {
+        className?: string
+        children?: React.ReactNode
+      }) => {
+        if (typeof className !== 'string') {
+          return <aside className={className}>{children}</aside>
+        }
+
+        if (className.includes('page-callout--important')) {
+          return (
+            <CalloutAside className={className} mark="!">
+              {children}
+            </CalloutAside>
+          )
+        }
+
+        if (className.includes('page-callout--key')) {
+          return (
+            <CalloutAside className={className} mark={<LightbulbMark />}>
+              {children}
+            </CalloutAside>
+          )
+        }
+
+        return <aside className={className}>{children}</aside>
+      },
       pre: ({ children }: { children?: React.ReactNode }) => (
         <CodeSnippet>{children}</CodeSnippet>
       ),
@@ -133,7 +203,7 @@ export function MarkdownContent({ markdown }: MarkdownContentProps) {
     <>
       <ReactMarkdown
         key={markdown}
-        remarkPlugins={[remarkGfm, remarkHeadingId]}
+        remarkPlugins={[remarkGfm, remarkHeadingId, remarkCallouts]}
         rehypePlugins={[rehypeCodeMeta, rehypeRaw, rehypeSlug, rehypeHighlight]}
         components={components}
       >
