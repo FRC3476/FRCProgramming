@@ -2,9 +2,9 @@
 
 Welcome to the FRC Programming! This is a basic guide that hopefully teaches not just how to write FRC code, but how to write good code in general.
 
-**However, do keep in mind all of the style and organizational things I mention are my personal opinions and don't be scared to modify it however you want to.**
+**However, do keep in mind all of the style and organizational things I mention are my personal opinions so please modify it to your liking.**
 
-Most programming guides cover the basics of how to write FRC code like how to run a motor and how PID works, but this is only a part of what programming is about. This guide will cover these topics, but also tools like how to properly use Git, how to organize your code to be more readable, and more. Hopefully this should make your experience during season a little better as the rest of the team gives you 3 days with the robot!
+Most programming guides cover the basics/concepts of how to write FRC code like how to run a motor and how PID works, but this is only a part of what programming is about. This guide will cover these topics, but also tools like how to properly use Git, how to organize your code to be more readable, and the FRC specifics about programming. Hopefully this should make your experience during season a little better as the rest of the team gives you 3 days with the robot!
 
 ## Prerequisites {#prereqs}
 

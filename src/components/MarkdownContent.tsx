@@ -1,4 +1,5 @@
 import { Children, isValidElement, useMemo, useState } from 'react'
+import { Link } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import remarkHeadingId from 'remark-heading-id'
@@ -10,6 +11,10 @@ import type { Root, Element } from 'hast'
 import { MediaLightbox, type LightboxMedia } from './medialightbox/MediaLightbox'
 import { isBundledAsset, resolveAssetUrl } from '../utils/resolveAssetUrl'
 import { remarkCallouts } from '../utils/remarkCallouts'
+
+function isInternalHref(href: string) {
+  return href.startsWith('/') && !href.startsWith('//')
+}
 
 // Copies the code fence meta (the text after the language, e.g. ```java My label)
 // into a data attribute, because rehype-raw would otherwise strip it.
@@ -116,11 +121,17 @@ export function MarkdownContent({ markdown }: MarkdownContentProps) {
 
         return <p className="page-text">{children}</p>
       },
-      a: ({ href, children }: { href?: string; children?: React.ReactNode }) => (
-        <a href={href} target="_blank" rel="noopener noreferrer">
-          {children}
-        </a>
-      ),
+      a: ({ href, children }: { href?: string; children?: React.ReactNode }) => {
+        if (href && isInternalHref(href)) {
+          return <Link to={href}>{children}</Link>
+        }
+
+        return (
+          <a href={href} target="_blank" rel="noopener noreferrer">
+            {children}
+          </a>
+        )
+      },
       aside: ({
         className,
         children,
