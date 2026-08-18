@@ -31,12 +31,12 @@
   --light-orange: #fe8019;
 
   --font-header: 'Inconsolata', monospace;
-  --size-header: 50px;
+  --size-header: 40px;
   --weight-header: 300;
 
 
   --font-subheading: 'Inconsolata', monospace;
-  --size-subheading: 37px;
+  --size-subheading: 33px;
   --weight-subheading: 300;
 
   --font-subsubheading: 'Inconsolata', monospace;
@@ -44,7 +44,7 @@
   --weight-subsubheading: 300;
 
   --font-body: 'Inter', sans-serif;
-  --size-body: 18px;
+  --size-body: 16px;
   --weight-body: 0;
   --line-height-base: 1.6;
   --letter-spacing: 0;

@@ -5,6 +5,7 @@ import commands from '../content/beginner/commands.md?raw'
 import writingSoftwareMd from '../content/beginner/writing-software.md?raw'
 import addLoggingMd from '../content/beginner/add-logging.md?raw'
 import addSimulationMd from '../content/beginner/add-simulation.md?raw'
+import advLoggingMd from '../content/advanced/adv-logging.md?raw'
 
 
 import { getPageTitle } from '../utils/buildNavItems'
@@ -53,9 +54,18 @@ export const beginnerCurriculum: CurriculumEntry[] = [
   }
 ]
 
+export const advancedCurriculum: CurriculumEntry[] = [
+  {
+    slug: 'adv-logging',
+    title: getPageTitle(advLoggingMd),
+    markdown: advLoggingMd,
+  }
+]
+
+
 export const curriculaBySection = {
   beginner: beginnerCurriculum,
-  advanced: [],
+  advanced: advancedCurriculum,
 } as const satisfies Record<string, CurriculumEntry[]>
 
 export type CurriculumSection = keyof typeof curriculaBySection
