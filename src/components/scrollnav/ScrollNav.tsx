@@ -1,41 +1,37 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from 'react'
+import { Link, NavLink } from 'react-router-dom'
 import type { NavItem } from '../../utils/buildNavItems'
+import { SCROLL_NAV_ID, useSidebarNav } from './sidebarNavContext'
 import { ScrollNavBackLink } from './ScrollNavBackLink'
 import './ScrollNav.css'
 
+export type LessonNavEntry = {
+  slug: string
+  title: string
+  sections: NavItem[]
+}
+
 type ScrollNavProps = {
   items: NavItem[]
+  children: ReactNode
+  lessons?: LessonNavEntry[]
+  section?: string
+  currentSlug?: string
 }
 
 const ACTIVE_OFFSET_RATIO = 0.4
 const SCROLL_END_DEBOUNCE_MS = 100
-const FULL_NAV_WIDTH_REM = 16.25
-const OVERLAP_HYSTERESIS_PX = 8
-const CONTENT_SELECTOR = [
-  '.page-section .page-text',
-  '.page-section h1',
-  '.page-section h2',
-  '.page-section h3',
-  '.page-section ol',
-  '.page-section ul',
-  '.page-section .page-code-details',
-].join(', ')
+const SIDEBAR_DOCK_QUERY = '(min-width: 960px)'
 
 function getActiveLine(): number {
   return window.innerHeight * ACTIVE_OFFSET_RATIO
-}
-
-function remToPx(rem: number): number {
-  return rem * parseFloat(getComputedStyle(document.documentElement).fontSize)
-}
-
-function rangesOverlap(
-  aTop: number,
-  aBottom: number,
-  bTop: number,
-  bBottom: number,
-): boolean {
-  return aTop < bBottom && aBottom > bTop
 }
 
 function stepActiveIndex(
@@ -69,28 +65,22 @@ function indexFromId(items: NavItem[], id: string): number {
   return index >= 0 ? index : 0
 }
 
-function measureContentOverlap(navRect: DOMRect, thresholdRight: number): boolean {
-  const nodes = document.querySelectorAll(CONTENT_SELECTOR)
-
-  for (const node of nodes) {
-    const rect = node.getBoundingClientRect()
-    if (rect.width === 0 && rect.height === 0) continue
-    if (!rangesOverlap(rect.top, rect.bottom, navRect.top, navRect.bottom)) continue
-    if (rect.left < thresholdRight) {
-      return true
-    }
-  }
-
-  return false
-}
-
-export function ScrollNav({ items }: ScrollNavProps) {
+export function ScrollNav({
+  items,
+  children,
+  lessons,
+  section,
+  currentSlug,
+}: ScrollNavProps) {
+  const { overlayOpen, setOverlayOpen, registerSidebar } = useSidebarNav()
   const [activeId, setActiveId] = useState<string>(items[0]?.id ?? '')
-  const [isCompact, setIsCompact] = useState(false)
-  const containerRef = useRef<HTMLDivElement>(null)
-  const isCompactRef = useRef(false)
+  const [docked, setDocked] = useState(true)
+  const [expandedSlugs, setExpandedSlugs] = useState<Set<string>>(
+    () => (currentSlug ? new Set([currentSlug]) : new Set()),
+  )
   const activeIndexRef = useRef(0)
   const lastScrollYRef = useRef(0)
+  const previousSlugRef = useRef(currentSlug)
 
   const setActive = useCallback(
     (id: string) => {
@@ -105,9 +95,43 @@ export function ScrollNav({ items }: ScrollNavProps) {
       document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
       setActive(id)
       history.replaceState(null, '', `#${id}`)
+      setOverlayOpen(false)
     },
-    [setActive],
+    [setActive, setOverlayOpen],
   )
+
+  const toggleExpanded = useCallback((slug: string) => {
+    setExpandedSlugs((current) => {
+      const next = new Set(current)
+      if (next.has(slug)) {
+        next.delete(slug)
+      } else {
+        next.add(slug)
+      }
+      return next
+    })
+  }, [])
+
+  useEffect(() => {
+    if (!currentSlug) return
+
+    const previousSlug = previousSlugRef.current
+    previousSlugRef.current = currentSlug
+
+    setExpandedSlugs((current) => {
+      if (current.has(currentSlug) && previousSlug === currentSlug) {
+        return current
+      }
+      const next = new Set(current)
+      if (previousSlug && previousSlug !== currentSlug) {
+        next.delete(previousSlug)
+      }
+      next.add(currentSlug)
+      return next
+    })
+  }, [currentSlug])
+
+  useLayoutEffect(() => registerSidebar(), [registerSidebar])
 
   useEffect(() => {
     const hash = window.location.hash.slice(1)
@@ -122,7 +146,8 @@ export function ScrollNav({ items }: ScrollNavProps) {
   useEffect(() => {
     if (items.length === 0) return
 
-    activeIndexRef.current = indexFromId(items, activeId)
+    const currentId = items[activeIndexRef.current]?.id
+    activeIndexRef.current = currentId ? indexFromId(items, currentId) : 0
     lastScrollYRef.current = window.scrollY
 
     let timeoutId: ReturnType<typeof setTimeout>
@@ -165,87 +190,161 @@ export function ScrollNav({ items }: ScrollNavProps) {
     }
   }, [items])
 
+  useLayoutEffect(() => {
+    const media = window.matchMedia(SIDEBAR_DOCK_QUERY)
+    const sync = () => {
+      setDocked(media.matches)
+      if (media.matches) setOverlayOpen(false)
+    }
+
+    sync()
+    media.addEventListener('change', sync)
+    return () => media.removeEventListener('change', sync)
+  }, [setOverlayOpen])
+
   useEffect(() => {
-    const container = containerRef.current
-    if (!container) return
+    if (!overlayOpen) return
 
-    const updateCompact = () => {
-      const navRect = container.getBoundingClientRect()
-      const fullNavRight = navRect.left + remToPx(FULL_NAV_WIDTH_REM)
-
-      if (isCompactRef.current) {
-        const stillOverlapping = measureContentOverlap(
-          navRect,
-          fullNavRight + OVERLAP_HYSTERESIS_PX,
-        )
-        if (!stillOverlapping) {
-          isCompactRef.current = false
-          setIsCompact(false)
-        }
-        return
-      }
-
-      const overlapping = measureContentOverlap(navRect, fullNavRight)
-      if (overlapping) {
-        isCompactRef.current = true
-        setIsCompact(true)
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setOverlayOpen(false)
       }
     }
 
-    updateCompact()
-
-    const onScrollOrResize = () => {
-      updateCompact()
-    }
-
-    window.addEventListener('scroll', onScrollOrResize, { passive: true })
-    window.addEventListener('resize', onScrollOrResize)
-
-    const resizeObserver = new ResizeObserver(updateCompact)
-    resizeObserver.observe(container)
-    const page = document.querySelector('.page')
-    if (page) resizeObserver.observe(page)
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', onKeyDown)
 
     return () => {
-      window.removeEventListener('scroll', onScrollOrResize)
-      window.removeEventListener('resize', onScrollOrResize)
-      resizeObserver.disconnect()
+      document.body.style.overflow = previousOverflow
+      window.removeEventListener('keydown', onKeyDown)
     }
-  }, [items])
+  }, [overlayOpen, setOverlayOpen])
+
+  const currentLessonExpanded = currentSlug ? expandedSlugs.has(currentSlug) : false
+  const activeItem = items.find((item) => item.id === activeId)
+  const subtitleActive = currentLessonExpanded && activeItem?.level === 1
+  const curriculumMode = Boolean(lessons && section)
 
   return (
-    <div
-      ref={containerRef}
-      className={`scroll-nav-container${isCompact ? ' is-compact' : ''}`}
-    >
-      <ScrollNavBackLink isCompact={isCompact} />
-      <nav
-        className="scroll-nav"
-        style={{ ['--nav-count' as string]: items.length }}
-        aria-label="Page sections"
+    <div className={`page-shell${overlayOpen ? ' is-overlay-open' : ''}`}>
+      <aside
+        className={`scroll-nav-container${overlayOpen ? ' is-open' : ''}`}
+        aria-hidden={!(docked || overlayOpen)}
+        inert={!(docked || overlayOpen)}
       >
-        <ul className="scroll-nav__list">
-          {items.map((item) => (
-            <li
-              key={item.id}
-              className={`scroll-nav__item${item.level === 1 ? ' scroll-nav__item--sub' : ''}`}
-            >
-              <button
-                type="button"
-                className={`scroll-nav__button${activeId === item.id ? ' is-active' : ''}`}
-                aria-current={activeId === item.id ? 'true' : undefined}
-                aria-label={isCompact ? item.title : undefined}
-                onClick={() => scrollToItem(item.id)}
-              >
-                <span className="scroll-nav__mark" aria-hidden="true" />
-                <span className="scroll-nav__label" aria-hidden={isCompact ? true : undefined}>
-                  {item.title}
-                </span>
-              </button>
-            </li>
-          ))}
-        </ul>
-      </nav>
+        <ScrollNavBackLink />
+        <nav
+          id={SCROLL_NAV_ID}
+          className="scroll-nav"
+          aria-label={curriculumMode ? 'Lessons' : 'Page sections'}
+        >
+          {curriculumMode && lessons && section ? (
+            <ul className="scroll-nav__list">
+              {lessons.map((lesson) => {
+                const expanded = expandedSlugs.has(lesson.slug)
+                const isCurrent = lesson.slug === currentSlug
+                const subListId = `scroll-nav-subs-${lesson.slug}`
+
+                return (
+                  <li key={lesson.slug} className="scroll-nav__lesson">
+                    <div className="scroll-nav__lesson-row">
+                      {lesson.sections.length > 0 ? (
+                        <button
+                          type="button"
+                          className="scroll-nav__expand"
+                          aria-expanded={expanded}
+                          aria-controls={subListId}
+                          aria-label={
+                            expanded
+                              ? `Hide sections in ${lesson.title}`
+                              : `Show sections in ${lesson.title}`
+                          }
+                          onClick={() => toggleExpanded(lesson.slug)}
+                        />
+                      ) : (
+                        <span className="scroll-nav__expand-spacer" />
+                      )}
+                      <NavLink
+                        to={`/${section}/${lesson.slug}`}
+                        end
+                        className={({ isActive }) =>
+                          `scroll-nav__button scroll-nav__lesson-link${
+                            isActive && !subtitleActive ? ' is-active' : ''
+                          }`
+                        }
+                        onClick={() => setOverlayOpen(false)}
+                      >
+                        <span className="scroll-nav__label">{lesson.title}</span>
+                      </NavLink>
+                    </div>
+                    {expanded ? (
+                      <ul id={subListId} className="scroll-nav__sublist">
+                        {lesson.sections.map((item) => (
+                          <li
+                            key={item.id}
+                            className="scroll-nav__item scroll-nav__item--sub"
+                          >
+                            {isCurrent ? (
+                              <button
+                                type="button"
+                                className={`scroll-nav__button${
+                                  activeId === item.id ? ' is-active' : ''
+                                }`}
+                                aria-current={
+                                  activeId === item.id ? 'true' : undefined
+                                }
+                                onClick={() => scrollToItem(item.id)}
+                              >
+                                <span className="scroll-nav__label">{item.title}</span>
+                              </button>
+                            ) : (
+                              <Link
+                                to={`/${section}/${lesson.slug}#${item.id}`}
+                                className="scroll-nav__button"
+                                onClick={() => setOverlayOpen(false)}
+                              >
+                                <span className="scroll-nav__label">{item.title}</span>
+                              </Link>
+                            )}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : null}
+                  </li>
+                )
+              })}
+            </ul>
+          ) : (
+            <ul className="scroll-nav__list">
+              {items.map((item) => (
+                <li
+                  key={item.id}
+                  className={`scroll-nav__item${item.level === 1 ? ' scroll-nav__item--sub' : ''}`}
+                >
+                  <button
+                    type="button"
+                    className={`scroll-nav__button${activeId === item.id ? ' is-active' : ''}`}
+                    aria-current={activeId === item.id ? 'true' : undefined}
+                    onClick={() => scrollToItem(item.id)}
+                  >
+                    <span className="scroll-nav__label">{item.title}</span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </nav>
+      </aside>
+      {overlayOpen ? (
+        <button
+          type="button"
+          className="scroll-nav-backdrop"
+          aria-label="Close section navigation"
+          onClick={() => setOverlayOpen(false)}
+        />
+      ) : null}
+      {children}
     </div>
   )
 }

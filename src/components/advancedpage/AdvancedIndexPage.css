@@ -1,0 +1,50 @@
+.advanced-index {
+  justify-content: flex-start;
+  padding-block-start: var(--page-top-padding);
+}
+
+.advanced-toc {
+  margin-block-start: 2rem;
+}
+
+.page-section ul.advanced-toc__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  padding-inline-start: clamp(0rem, 5vw, 4rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.page-section .advanced-toc__item {
+  margin: 0;
+}
+
+.advanced-toc__link {
+  display: block;
+  padding: 1rem 1.25rem;
+  border: 1px solid color-mix(in srgb, var(--gray) 35%, transparent);
+  border-radius: 0.375rem;
+  text-decoration: none;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.advanced-toc__link:hover {
+  border-color: var(--light-yellow);
+  background-color: color-mix(in srgb, var(--bg1) 70%, transparent);
+}
+
+.advanced-toc__title {
+  font-family: var(--font-subheading);
+  font-size: calc(var(--size-subheading) * 0.65);
+  font-weight: var(--weight-subheading);
+  color: var(--light-blue);
+  line-height: 1.3;
+}
+
+.advanced-toc__link:hover .advanced-toc__title {
+  color: var(--light-yellow);
+}

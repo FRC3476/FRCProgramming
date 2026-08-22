@@ -3,7 +3,7 @@ Simulation might seem like an extremely difficult task to do, but in reality in 
 ## What is Simulation
 Simulation is having your computer run a virtual motor. It shouldn't be used for any physical constants, such as PID as you're never going to be as physically accurate as the physical world, but rather should be used as a way to verify if your code has any bugs.
 
-An example would be an elevator. Let's say that the elevator should have 3 position, one at 22 inches up, one at 0 inches, and one at 11 inches. If we wanted to test if the code had any issues, you would just simulate it, press the buttons to go to those 3 positions and see if the simulation goes to the points correctly. If it does, then your code is bug free (like 100%). If it doesn't work, it's not your logic that is the issue, but rather tuning and such.
+An example would be an elevator. Let's say that the elevator should have 3 position, one at 22 inches up, one at 0 inches, and one at 11 inches. If we wanted to test if the code had any issues, you would just simulate it, press the buttons to go to those 3 positions and see if the simulation goes to the points correctly. If it does, then your code is bug free (like 100%) and what unexpected behavior is simply tuning.
 
 ![The flywheel goes to its half free speed which is what I want. (Krakenx60 freespeed is 6000rpm)](../assets/beginner/simulation-example.png)
 
@@ -47,9 +47,9 @@ if (RobotBase.isSimulation()) {
     motorSim.setRotorVelocity(mechanismRps * Constants.SHOOTER_GEARING); //updates the simulated motor state's velocity
 }
 ```
-The motorSim object updates the real motor's StatusSignals when we're in a simulation, meaning that all of our previous logging works. It also means that we have to update it if we want a proper simulation.
+The motorSim object updates the real motor's StatusSignals when we're in a simulation, meaning that all of our previous logging code works.
 
-## How to Simulates
+## How to Simulate
 Simulating is pretty easy, simply click the WPILib symbol and click the Simulate Robot Code option. Once the code builds, click the Sim GUI. You make sure to enable Desktop Support in your build.gradle. After that open AdvantageScope and connect to the simulation with it. 
 
 To add keyboard controls in the sim, assign your keyboard to the joystick number in your code like so: 

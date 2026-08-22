@@ -1,5 +1,6 @@
 import { Children, isValidElement, useMemo, useState } from 'react'
-import ReactMarkdown from 'react-markdown'
+import { Link } from 'react-router-dom'
+import ReactMarkdown, { type ExtraProps } from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import remarkHeadingId from 'remark-heading-id'
 import rehypeRaw from 'rehype-raw'
@@ -11,6 +12,10 @@ import { MediaLightbox, type LightboxMedia } from './medialightbox/MediaLightbox
 import { isBundledAsset, resolveAssetUrl } from '../utils/resolveAssetUrl'
 import { remarkCallouts } from '../utils/remarkCallouts'
 
+function isInternalHref(href: string) {
+  return href.startsWith('/') && !href.startsWith('//')
+}
+
 // Copies the code fence meta (the text after the language, e.g. ```java My label)
 // into a data attribute, because rehype-raw would otherwise strip it.
 function rehypeCodeMeta() {
@@ -19,6 +24,44 @@ function rehypeCodeMeta() {
       const meta = node.tagName === 'code' && (node.data as { meta?: string } | undefined)?.meta
       if (meta) {
         node.properties.dataMeta = meta
+      }
+    })
+  }
+}
+
+function getElementText(node: Element): string {
+  let text = ''
+  visit(node, 'text', (child) => {
+    text += child.value
+  })
+  return text
+}
+
+function headingRank(tagName: string): number | null {
+  const match = /^h([1-6])$/.exec(tagName)
+  return match ? Number(match[1]) : null
+}
+
+// Collapses fenced code under a "Final Code" heading so the full-file dump
+// starts closed while in-lesson examples stay open.
+function rehypeCollapseFinalCode() {
+  return (tree: Root) => {
+    let collapseUntilRank: number | null = null
+
+    visit(tree, 'element', (node: Element) => {
+      const rank = headingRank(node.tagName)
+      if (rank !== null) {
+        if (collapseUntilRank !== null && rank <= collapseUntilRank) {
+          collapseUntilRank = null
+        }
+        if (/^final code$/i.test(getElementText(node).trim())) {
+          collapseUntilRank = rank
+        }
+        return
+      }
+
+      if (collapseUntilRank !== null && node.tagName === 'pre') {
+        node.properties.dataCollapsed = true
       }
     })
   }
@@ -88,8 +131,14 @@ function CalloutAside({
   )
 }
 
-function CodeSnippet({ children }: { children?: React.ReactNode }) {
-  const [open, setOpen] = useState(true)
+function CodeSnippet({
+  children,
+  defaultOpen = true,
+}: {
+  children?: React.ReactNode
+  defaultOpen?: boolean
+}) {
+  const [open, setOpen] = useState(defaultOpen)
 
   return (
     <details
@@ -116,11 +165,17 @@ export function MarkdownContent({ markdown }: MarkdownContentProps) {
 
         return <p className="page-text">{children}</p>
       },
-      a: ({ href, children }: { href?: string; children?: React.ReactNode }) => (
-        <a href={href} target="_blank" rel="noopener noreferrer">
-          {children}
-        </a>
-      ),
+      a: ({ href, children }: { href?: string; children?: React.ReactNode }) => {
+        if (href && isInternalHref(href)) {
+          return <Link to={href}>{children}</Link>
+        }
+
+        return (
+          <a href={href} target="_blank" rel="noopener noreferrer">
+            {children}
+          </a>
+        )
+      },
       aside: ({
         className,
         children,
@@ -150,8 +205,13 @@ export function MarkdownContent({ markdown }: MarkdownContentProps) {
 
         return <aside className={className}>{children}</aside>
       },
-      pre: ({ children }: { children?: React.ReactNode }) => (
-        <CodeSnippet>{children}</CodeSnippet>
+      pre: ({
+        children,
+        node,
+      }: ExtraProps & { children?: React.ReactNode }) => (
+        <CodeSnippet defaultOpen={!node?.properties?.dataCollapsed}>
+          {children}
+        </CodeSnippet>
       ),
       code: ({
         className,
@@ -204,7 +264,13 @@ export function MarkdownContent({ markdown }: MarkdownContentProps) {
       <ReactMarkdown
         key={markdown}
         remarkPlugins={[remarkGfm, remarkHeadingId, remarkCallouts]}
-        rehypePlugins={[rehypeCodeMeta, rehypeRaw, rehypeSlug, rehypeHighlight]}
+        rehypePlugins={[
+          rehypeCodeMeta,
+          rehypeRaw,
+          rehypeSlug,
+          rehypeHighlight,
+          rehypeCollapseFinalCode,
+        ]}
         components={components}
       >
         {markdown}

@@ -1,14 +1,10 @@
 import { Link, useLocation } from 'react-router-dom'
 
-type ScrollNavBackLinkProps = {
-  isCompact?: boolean
-}
-
 function formatSectionLabel(section: string): string {
   return section.charAt(0).toUpperCase() + section.slice(1)
 }
 
-export function ScrollNavBackLink({ isCompact = false }: ScrollNavBackLinkProps) {
+export function ScrollNavBackLink() {
   const { pathname } = useLocation()
   const pathSegments = pathname.split('/').filter(Boolean)
 
@@ -17,20 +13,26 @@ export function ScrollNavBackLink({ isCompact = false }: ScrollNavBackLinkProps)
   }
 
   const section = pathSegments[0]
+
+  if (section === 'beginner') {
+    return (
+      <Link to="/" className="scroll-nav__back">
+        <span className="scroll-nav__back-arrow" aria-hidden="true">
+          ←
+        </span>
+        <span className="scroll-nav__back-text">Back to landing page</span>
+      </Link>
+    )
+  }
+
   const label = `Back to ${formatSectionLabel(section)}`
 
   return (
-    <Link
-      to={`/${section}`}
-      className="scroll-nav__back"
-      aria-label={isCompact ? label : undefined}
-    >
+    <Link to={`/${section}`} className="scroll-nav__back">
       <span className="scroll-nav__back-arrow" aria-hidden="true">
         ←
       </span>
-      <span className="scroll-nav__back-text" aria-hidden={isCompact ? true : undefined}>
-        {label}
-      </span>
+      <span className="scroll-nav__back-text">{label}</span>
     </Link>
   )
 }

@@ -20,19 +20,33 @@ export function LessonPage() {
     [entry],
   )
 
+  const lessons = useMemo(
+    () =>
+      (entries ?? []).map((item) => ({
+        slug: item.slug,
+        title: item.title,
+        sections: buildNavItems(item.markdown).filter((nav) => nav.level === 1),
+      })),
+    [entries],
+  )
+
   if (!section || !entries || !entry) {
     return <Navigate to={section ? `/${section}` : '/'} replace />
   }
 
   return (
-    <>
-      <ScrollNav items={navItems} />
+    <ScrollNav
+      items={navItems}
+      lessons={lessons}
+      section={section}
+      currentSlug={entry.slug}
+    >
       <main className="page">
         <section className="page-section">
           <MarkdownContent markdown={entry.markdown} />
           <AdvanceNav section={section} slug={entry.slug} entries={entries} />
         </section>
       </main>
-    </>
+    </ScrollNav>
   )
 }
