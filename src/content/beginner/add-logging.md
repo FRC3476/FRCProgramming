@@ -143,8 +143,12 @@ public class Shooter extends Mechanism {
   }
 
   private void periodic() {
-    io.updateInputs(inputs);
-    Logger.processInputs("Shooter", inputs);
+    io.updateInputs();
+    Logger.recordOutput("Shooter/Pos", io.getPositionRot());
+    Logger.recordOutput("Shooter/Velo", io.getVelocityRPS());
+    Logger.recordOutput("Shooter/StatorCurrent", io.getStatorCurrentAmps());
+    Logger.recordOutput("Shooter/Voltage", io.getMotorVoltageVolts());
+
   }
 
   public Command spin(double dutyCycle) {
