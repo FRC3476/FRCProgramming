@@ -248,38 +248,36 @@ export function ScrollNav({
 
                 return (
                   <li key={lesson.slug} className="scroll-nav__lesson">
-                    <NavLink
-                      to={`/${section}/${lesson.slug}`}
-                      end
-                      className={({ isActive }) =>
-                        `scroll-nav__button scroll-nav__lesson-link${
-                          isActive && !subtitleActive ? ' is-active' : ''
-                        }`
-                      }
-                      aria-expanded={
-                        lesson.sections.length > 0 ? expanded : undefined
-                      }
-                      aria-controls={
-                        lesson.sections.length > 0 ? subListId : undefined
-                      }
-                      onClick={(event) => {
-                        if (isCurrent) {
-                          event.preventDefault()
-                          if (lesson.sections.length > 0) {
-                            toggleExpanded(lesson.slug)
-                          }
-                          return
-                        }
-                        setOverlayOpen(false)
-                      }}
-                    >
+                    <div className="scroll-nav__lesson-row">
                       {lesson.sections.length > 0 ? (
-                        <span className="scroll-nav__expand" aria-hidden="true" />
+                        <button
+                          type="button"
+                          className="scroll-nav__expand"
+                          aria-expanded={expanded}
+                          aria-controls={subListId}
+                          aria-label={
+                            expanded
+                              ? `Hide sections in ${lesson.title}`
+                              : `Show sections in ${lesson.title}`
+                          }
+                          onClick={() => toggleExpanded(lesson.slug)}
+                        />
                       ) : (
                         <span className="scroll-nav__expand-spacer" />
                       )}
-                      <span className="scroll-nav__label">{lesson.title}</span>
-                    </NavLink>
+                      <NavLink
+                        to={`/${section}/${lesson.slug}`}
+                        end
+                        className={({ isActive }) =>
+                          `scroll-nav__button scroll-nav__lesson-link${
+                            isActive && !subtitleActive ? ' is-active' : ''
+                          }`
+                        }
+                        onClick={() => setOverlayOpen(false)}
+                      >
+                        <span className="scroll-nav__label">{lesson.title}</span>
+                      </NavLink>
+                    </div>
                     {expanded ? (
                       <ul id={subListId} className="scroll-nav__sublist">
                         {lesson.sections.map((item) => (
