@@ -162,11 +162,12 @@
 }
 
 .page-section .page-code-summary {
+  --code-arrow-inset: 0.875rem;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--code-arrow-inset);
   min-height: calc(0.65rem * 2 + 1.25em);
-  padding: 0.65rem 1.25rem;
+  padding: 0.65rem 1.25rem 0.65rem var(--code-arrow-inset);
   cursor: pointer;
   list-style: none;
   font-family: var(--font-header);
