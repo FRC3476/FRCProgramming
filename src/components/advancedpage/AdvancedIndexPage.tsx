@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom'
 import { advancedCurriculum } from '../../data/curriculum'
+import { HomeBackLink } from '../HomeBackLink'
 import './AdvancedIndexPage.css'
 
 export function AdvancedIndexPage() {
   return (
     <main className="page">
       <section className="page-section advanced-index">
+        <HomeBackLink />
         <h1>Advanced</h1>
         <p className="page-text">
           Pick a guide below to get started. Each page covers one topic with its own

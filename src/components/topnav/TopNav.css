@@ -7,9 +7,41 @@
   align-items: center;
   justify-content: space-between;
   height: var(--navbar-height);
-  padding-inline: clamp(2rem, 10vw, 6rem);
+  padding-inline: var(--page-inline-padding);
   background-color: var(--bg1);
   border-bottom: 1px solid color-mix(in srgb, var(--gray) 40%, transparent);
+}
+
+.top-nav__start {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-inline-start: -0.5rem;
+}
+
+.top-nav__sidebar-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: none;
+  border-radius: 0.25rem;
+  background: none;
+  color: var(--light-orange);
+  cursor: pointer;
+}
+
+@media (max-width: 959.98px) {
+  .top-nav__sidebar-toggle {
+    display: flex;
+  }
+}
+
+.top-nav__sidebar-toggle svg {
+  width: 1.125rem;
+  height: 1.125rem;
 }
 
 .top-nav__brand,
@@ -24,7 +56,12 @@
 
 .top-nav__brand {
   padding: 0.25rem 0.5rem;
-  margin-inline-start: -0.5rem;
+}
+
+.top-nav__sidebar-toggle:hover,
+.top-nav__brand:hover,
+.top-nav__link:hover {
+  background-color: var(--light-yellow);
 }
 
 .top-nav__links {
@@ -35,11 +72,6 @@
 
 .top-nav__link {
   padding: 0.25rem 0.625rem;
-}
-
-.top-nav__brand:hover,
-.top-nav__link:hover {
-  background-color: var(--light-yellow);
 }
 
 .top-nav__brand.is-active,

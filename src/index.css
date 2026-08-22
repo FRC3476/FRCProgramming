@@ -51,6 +51,8 @@
 
   --navbar-height: 3rem;
   --page-top-padding: calc(var(--navbar-height) + 6rem);
+  --page-inline-padding: clamp(2rem, 10vw, 6rem);
+  --sidebar-width: 18rem;
 }
 
 *,
